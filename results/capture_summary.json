@@ -1,0 +1,9 @@
+{
+  "route": "direct PostgreSQL COPY in batches of 50,000",
+  "consumed": 10696848,
+  "stored": 10696848,
+  "expected": 10696848,
+  "total_seconds": 117.47,
+  "write_seconds": 117.257,
+  "cat_start_end": "not captured during this completed load; pipeline.py now records these for future runs"
+}

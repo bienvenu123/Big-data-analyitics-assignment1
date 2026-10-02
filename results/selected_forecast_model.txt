@@ -1,0 +1,4 @@
+configuration=RF_300
+features=['region', 'hour', 'dow', 'day_of_year', 'lag_24h', 'lag_168h', 'prior_week_same_hour_mean']
+training_rows=1680
+validation_rows=1680

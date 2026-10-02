@@ -1,0 +1,448 @@
+Finalize Aggregate  (cost=145861.04..145861.05 rows=1 width=40) (actual time=992.563..993.959 rows=1 loops=1)
+  Output: count(*), sum(energy_meter_compressed.energy_kwh), avg(energy_meter_compressed.power_kw), min(energy_meter_compressed.power_kw), max(energy_meter_compressed.power_kw)
+  Buffers: shared hit=626024 read=50153
+  ->  Gather  (cost=6155.08..145860.98 rows=5 width=64) (actual time=23.659..993.848 rows=33 loops=1)
+        Output: (PARTIAL count(*)), (PARTIAL sum(energy_meter_compressed.energy_kwh)), (PARTIAL avg(energy_meter_compressed.power_kw)), (PARTIAL min(energy_meter_compressed.power_kw)), (PARTIAL max(energy_meter_compressed.power_kw))
+        Workers Planned: 5
+        Workers Launched: 5
+        Buffers: shared hit=626024 read=50153
+        ->  Parallel Append  (cost=5155.08..144860.48 rows=1 width=64) (actual time=184.921..938.527 rows=6 loops=6)
+              Buffers: shared hit=626024 read=50153
+              Worker 0:  actual time=272.395..917.694 rows=5 loops=1
+                Buffers: shared hit=97081 read=7651
+              Worker 1:  actual time=222.866..923.060 rows=5 loops=1
+                Buffers: shared hit=103931 read=8513
+              Worker 2:  actual time=196.126..926.902 rows=5 loops=1
+                Buffers: shared hit=105455 read=8194
+              Worker 3:  actual time=256.284..923.534 rows=6 loops=1
+                Buffers: shared hit=101852 read=7966
+              Worker 4:  actual time=142.551..951.896 rows=5 loops=1
+                Buffers: shared hit=104149 read=8295
+              ->  Custom Scan (VectorAgg)  (cost=5155.87..5155.88 rows=1 width=64) (actual time=142.549..142.554 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_351_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_351_chunk.power_kw)), (PARTIAL min(_hyper_10_351_chunk.power_kw)), (PARTIAL max(_hyper_10_351_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22179 read=1959
+                    Worker 4:  actual time=142.549..142.554 rows=1 loops=1
+                      Buffers: shared hit=22179 read=1959
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_351_chunk  (cost=1.00..2360.13 rows=223660 width=16) (actual time=0.000..0.001 rows=380212 loops=1)
+                          Output: _hyper_10_351_chunk.energy_kwh, _hyper_10_351_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 4:  actual time=0.000..0.001 rows=380212 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_351_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.554..7.714 rows=4000 loops=1)
+                                Output: _hyper_10_351_chunk_compressed._ts_meta_count, _hyper_10_351_chunk_compressed.meter_id, _hyper_10_351_chunk_compressed._ts_meta_min_1, _hyper_10_351_chunk_compressed._ts_meta_max_1, _hyper_10_351_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_351_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_351_chunk_compressed.event_time, _hyper_10_351_chunk_compressed.received_time, _hyper_10_351_chunk_compressed.power_kw, _hyper_10_351_chunk_compressed.voltage_v, _hyper_10_351_chunk_compressed.current_a, _hyper_10_351_chunk_compressed.frequency_hz, _hyper_10_351_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 4:  actual time=0.554..7.714 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.86..5155.87 rows=1 width=64) (actual time=196.124..196.129 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_350_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_350_chunk.power_kw)), (PARTIAL min(_hyper_10_350_chunk.power_kw)), (PARTIAL max(_hyper_10_350_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22411 read=1727
+                    Worker 2:  actual time=196.124..196.129 rows=1 loops=1
+                      Buffers: shared hit=22411 read=1727
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_350_chunk  (cost=1.00..2360.12 rows=223659 width=16) (actual time=0.000..0.001 rows=380211 loops=1)
+                          Output: _hyper_10_350_chunk.energy_kwh, _hyper_10_350_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 2:  actual time=0.000..0.001 rows=380211 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_350_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.627..7.888 rows=4000 loops=1)
+                                Output: _hyper_10_350_chunk_compressed._ts_meta_count, _hyper_10_350_chunk_compressed.meter_id, _hyper_10_350_chunk_compressed._ts_meta_min_1, _hyper_10_350_chunk_compressed._ts_meta_max_1, _hyper_10_350_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_350_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_350_chunk_compressed.event_time, _hyper_10_350_chunk_compressed.received_time, _hyper_10_350_chunk_compressed.power_kw, _hyper_10_350_chunk_compressed.voltage_v, _hyper_10_350_chunk_compressed.current_a, _hyper_10_350_chunk_compressed.frequency_hz, _hyper_10_350_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.627..7.888 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.77..5155.78 rows=1 width=64) (actual time=256.281..256.286 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_348_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_348_chunk.power_kw)), (PARTIAL min(_hyper_10_348_chunk.power_kw)), (PARTIAL max(_hyper_10_348_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22416 read=1722
+                    Worker 3:  actual time=256.281..256.286 rows=1 loops=1
+                      Buffers: shared hit=22416 read=1722
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_348_chunk  (cost=1.00..2360.08 rows=223655 width=16) (actual time=0.000..0.001 rows=380204 loops=1)
+                          Output: _hyper_10_348_chunk.energy_kwh, _hyper_10_348_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 3:  actual time=0.000..0.001 rows=380204 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_348_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.995..12.619 rows=4000 loops=1)
+                                Output: _hyper_10_348_chunk_compressed._ts_meta_count, _hyper_10_348_chunk_compressed.meter_id, _hyper_10_348_chunk_compressed._ts_meta_min_1, _hyper_10_348_chunk_compressed._ts_meta_max_1, _hyper_10_348_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_348_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_348_chunk_compressed.event_time, _hyper_10_348_chunk_compressed.received_time, _hyper_10_348_chunk_compressed.power_kw, _hyper_10_348_chunk_compressed.voltage_v, _hyper_10_348_chunk_compressed.current_a, _hyper_10_348_chunk_compressed.frequency_hz, _hyper_10_348_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 3:  actual time=0.995..12.619 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.13..5155.14 rows=1 width=64) (actual time=272.392..272.397 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_347_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_347_chunk.power_kw)), (PARTIAL min(_hyper_10_347_chunk.power_kw)), (PARTIAL max(_hyper_10_347_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22413 read=1725
+                    Worker 0:  actual time=272.392..272.397 rows=1 loops=1
+                      Buffers: shared hit=22413 read=1725
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_347_chunk  (cost=1.00..2359.80 rows=223627 width=16) (actual time=0.000..0.001 rows=380156 loops=1)
+                          Output: _hyper_10_347_chunk.energy_kwh, _hyper_10_347_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 0:  actual time=0.000..0.001 rows=380156 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_347_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.554..11.668 rows=4000 loops=1)
+                                Output: _hyper_10_347_chunk_compressed._ts_meta_count, _hyper_10_347_chunk_compressed.meter_id, _hyper_10_347_chunk_compressed._ts_meta_min_1, _hyper_10_347_chunk_compressed._ts_meta_max_1, _hyper_10_347_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_347_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_347_chunk_compressed.event_time, _hyper_10_347_chunk_compressed.received_time, _hyper_10_347_chunk_compressed.power_kw, _hyper_10_347_chunk_compressed.voltage_v, _hyper_10_347_chunk_compressed.current_a, _hyper_10_347_chunk_compressed.frequency_hz, _hyper_10_347_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 0:  actual time=0.554..11.668 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.08..5155.09 rows=1 width=64) (actual time=222.864..222.869 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_353_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_353_chunk.power_kw)), (PARTIAL min(_hyper_10_353_chunk.power_kw)), (PARTIAL max(_hyper_10_353_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22193 read=1945
+                    Worker 1:  actual time=222.864..222.869 rows=1 loops=1
+                      Buffers: shared hit=22193 read=1945
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_353_chunk  (cost=1.00..2359.77 rows=223624 width=16) (actual time=0.000..0.001 rows=380152 loops=1)
+                          Output: _hyper_10_353_chunk.energy_kwh, _hyper_10_353_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 1:  actual time=0.000..0.001 rows=380152 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_353_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.655..9.074 rows=4000 loops=1)
+                                Output: _hyper_10_353_chunk_compressed._ts_meta_count, _hyper_10_353_chunk_compressed.meter_id, _hyper_10_353_chunk_compressed._ts_meta_min_1, _hyper_10_353_chunk_compressed._ts_meta_max_1, _hyper_10_353_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_353_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_353_chunk_compressed.event_time, _hyper_10_353_chunk_compressed.received_time, _hyper_10_353_chunk_compressed.power_kw, _hyper_10_353_chunk_compressed.voltage_v, _hyper_10_353_chunk_compressed.current_a, _hyper_10_353_chunk_compressed.frequency_hz, _hyper_10_353_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 1:  actual time=0.655..9.074 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.07..5155.08 rows=1 width=64) (actual time=332.416..332.421 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_334_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_334_chunk.power_kw)), (PARTIAL min(_hyper_10_334_chunk.power_kw)), (PARTIAL max(_hyper_10_334_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22413 read=1712
+                    Worker 4:  actual time=332.416..332.421 rows=1 loops=1
+                      Buffers: shared hit=22413 read=1712
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_334_chunk  (cost=1.00..2359.77 rows=223624 width=16) (actual time=0.000..0.001 rows=380151 loops=1)
+                          Output: _hyper_10_334_chunk.energy_kwh, _hyper_10_334_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 4:  actual time=0.000..0.001 rows=380151 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_334_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.878..12.602 rows=4000 loops=1)
+                                Output: _hyper_10_334_chunk_compressed._ts_meta_count, _hyper_10_334_chunk_compressed.meter_id, _hyper_10_334_chunk_compressed._ts_meta_min_1, _hyper_10_334_chunk_compressed._ts_meta_max_1, _hyper_10_334_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_334_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_334_chunk_compressed.event_time, _hyper_10_334_chunk_compressed.received_time, _hyper_10_334_chunk_compressed.power_kw, _hyper_10_334_chunk_compressed.voltage_v, _hyper_10_334_chunk_compressed.current_a, _hyper_10_334_chunk_compressed.frequency_hz, _hyper_10_334_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 4:  actual time=0.878..12.602 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.07..5155.08 rows=1 width=64) (actual time=261.808..261.813 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_343_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_343_chunk.power_kw)), (PARTIAL min(_hyper_10_343_chunk.power_kw)), (PARTIAL max(_hyper_10_343_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22437 read=1688
+                    Worker 2:  actual time=261.808..261.813 rows=1 loops=1
+                      Buffers: shared hit=22437 read=1688
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_343_chunk  (cost=1.00..2359.77 rows=223624 width=16) (actual time=0.000..0.001 rows=380151 loops=1)
+                          Output: _hyper_10_343_chunk.energy_kwh, _hyper_10_343_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 2:  actual time=0.000..0.001 rows=380151 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_343_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.606..13.704 rows=4000 loops=1)
+                                Output: _hyper_10_343_chunk_compressed._ts_meta_count, _hyper_10_343_chunk_compressed.meter_id, _hyper_10_343_chunk_compressed._ts_meta_min_1, _hyper_10_343_chunk_compressed._ts_meta_max_1, _hyper_10_343_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_343_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_343_chunk_compressed.event_time, _hyper_10_343_chunk_compressed.received_time, _hyper_10_343_chunk_compressed.power_kw, _hyper_10_343_chunk_compressed.voltage_v, _hyper_10_343_chunk_compressed.current_a, _hyper_10_343_chunk_compressed.frequency_hz, _hyper_10_343_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.606..13.704 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5155.01..5155.02 rows=1 width=64) (actual time=247.210..247.214 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_358_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_358_chunk.power_kw)), (PARTIAL min(_hyper_10_358_chunk.power_kw)), (PARTIAL max(_hyper_10_358_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22173 read=1952
+                    Worker 1:  actual time=247.210..247.214 rows=1 loops=1
+                      Buffers: shared hit=22173 read=1952
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_358_chunk  (cost=1.00..2359.74 rows=223621 width=16) (actual time=0.000..0.001 rows=380147 loops=1)
+                          Output: _hyper_10_358_chunk.energy_kwh, _hyper_10_358_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 1:  actual time=0.000..0.001 rows=380147 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_358_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=1.052..12.874 rows=4000 loops=1)
+                                Output: _hyper_10_358_chunk_compressed._ts_meta_count, _hyper_10_358_chunk_compressed.meter_id, _hyper_10_358_chunk_compressed._ts_meta_min_1, _hyper_10_358_chunk_compressed._ts_meta_max_1, _hyper_10_358_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_358_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_358_chunk_compressed.event_time, _hyper_10_358_chunk_compressed.received_time, _hyper_10_358_chunk_compressed.power_kw, _hyper_10_358_chunk_compressed.voltage_v, _hyper_10_358_chunk_compressed.current_a, _hyper_10_358_chunk_compressed.frequency_hz, _hyper_10_358_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 1:  actual time=1.052..12.874 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.97..5154.98 rows=1 width=64) (actual time=219.209..219.214 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_337_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_337_chunk.power_kw)), (PARTIAL min(_hyper_10_337_chunk.power_kw)), (PARTIAL max(_hyper_10_337_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22468 read=1657
+                    Worker 3:  actual time=219.209..219.214 rows=1 loops=1
+                      Buffers: shared hit=22468 read=1657
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_337_chunk  (cost=1.00..2359.73 rows=223620 width=16) (actual time=0.000..0.001 rows=380144 loops=1)
+                          Output: _hyper_10_337_chunk.energy_kwh, _hyper_10_337_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 3:  actual time=0.000..0.001 rows=380144 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_337_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.975..12.124 rows=4000 loops=1)
+                                Output: _hyper_10_337_chunk_compressed._ts_meta_count, _hyper_10_337_chunk_compressed.meter_id, _hyper_10_337_chunk_compressed._ts_meta_min_1, _hyper_10_337_chunk_compressed._ts_meta_max_1, _hyper_10_337_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_337_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_337_chunk_compressed.event_time, _hyper_10_337_chunk_compressed.received_time, _hyper_10_337_chunk_compressed.power_kw, _hyper_10_337_chunk_compressed.voltage_v, _hyper_10_337_chunk_compressed.current_a, _hyper_10_337_chunk_compressed.frequency_hz, _hyper_10_337_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 3:  actual time=0.975..12.124 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.73..5154.74 rows=1 width=64) (actual time=212.180..212.184 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_336_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_336_chunk.power_kw)), (PARTIAL min(_hyper_10_336_chunk.power_kw)), (PARTIAL max(_hyper_10_336_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22467 read=1658
+                    Worker 0:  actual time=212.180..212.184 rows=1 loops=1
+                      Buffers: shared hit=22467 read=1658
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_336_chunk  (cost=1.00..2359.62 rows=223609 width=16) (actual time=0.000..0.001 rows=380126 loops=1)
+                          Output: _hyper_10_336_chunk.energy_kwh, _hyper_10_336_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 0:  actual time=0.000..0.001 rows=380126 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_336_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=2.540..15.272 rows=4000 loops=1)
+                                Output: _hyper_10_336_chunk_compressed._ts_meta_count, _hyper_10_336_chunk_compressed.meter_id, _hyper_10_336_chunk_compressed._ts_meta_min_1, _hyper_10_336_chunk_compressed._ts_meta_max_1, _hyper_10_336_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_336_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_336_chunk_compressed.event_time, _hyper_10_336_chunk_compressed.received_time, _hyper_10_336_chunk_compressed.power_kw, _hyper_10_336_chunk_compressed.voltage_v, _hyper_10_336_chunk_compressed.current_a, _hyper_10_336_chunk_compressed.frequency_hz, _hyper_10_336_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 0:  actual time=2.540..15.272 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.69..5154.70 rows=1 width=64) (actual time=174.006..174.010 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_341_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_341_chunk.power_kw)), (PARTIAL min(_hyper_10_341_chunk.power_kw)), (PARTIAL max(_hyper_10_341_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22466 read=1659
+                    Worker 2:  actual time=174.006..174.010 rows=1 loops=1
+                      Buffers: shared hit=22466 read=1659
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_341_chunk  (cost=1.00..2359.60 rows=223607 width=16) (actual time=0.000..0.001 rows=380123 loops=1)
+                          Output: _hyper_10_341_chunk.energy_kwh, _hyper_10_341_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 2:  actual time=0.000..0.001 rows=380123 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_341_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.755..10.474 rows=4000 loops=1)
+                                Output: _hyper_10_341_chunk_compressed._ts_meta_count, _hyper_10_341_chunk_compressed.meter_id, _hyper_10_341_chunk_compressed._ts_meta_min_1, _hyper_10_341_chunk_compressed._ts_meta_max_1, _hyper_10_341_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_341_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_341_chunk_compressed.event_time, _hyper_10_341_chunk_compressed.received_time, _hyper_10_341_chunk_compressed.power_kw, _hyper_10_341_chunk_compressed.voltage_v, _hyper_10_341_chunk_compressed.current_a, _hyper_10_341_chunk_compressed.frequency_hz, _hyper_10_341_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.755..10.474 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.68..5154.69 rows=1 width=64) (actual time=218.947..218.951 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_339_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_339_chunk.power_kw)), (PARTIAL min(_hyper_10_339_chunk.power_kw)), (PARTIAL max(_hyper_10_339_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22469 read=1656
+                    Worker 4:  actual time=218.947..218.951 rows=1 loops=1
+                      Buffers: shared hit=22469 read=1656
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_339_chunk  (cost=1.00..2359.60 rows=223607 width=16) (actual time=0.000..0.001 rows=380122 loops=1)
+                          Output: _hyper_10_339_chunk.energy_kwh, _hyper_10_339_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 4:  actual time=0.000..0.001 rows=380122 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_339_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.799..10.545 rows=4000 loops=1)
+                                Output: _hyper_10_339_chunk_compressed._ts_meta_count, _hyper_10_339_chunk_compressed.meter_id, _hyper_10_339_chunk_compressed._ts_meta_min_1, _hyper_10_339_chunk_compressed._ts_meta_max_1, _hyper_10_339_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_339_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_339_chunk_compressed.event_time, _hyper_10_339_chunk_compressed.received_time, _hyper_10_339_chunk_compressed.power_kw, _hyper_10_339_chunk_compressed.voltage_v, _hyper_10_339_chunk_compressed.current_a, _hyper_10_339_chunk_compressed.frequency_hz, _hyper_10_339_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 4:  actual time=0.799..10.545 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.67..5154.68 rows=1 width=64) (actual time=270.688..270.693 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_354_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_354_chunk.power_kw)), (PARTIAL min(_hyper_10_354_chunk.power_kw)), (PARTIAL max(_hyper_10_354_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22148 read=1977
+                    Worker 3:  actual time=270.688..270.693 rows=1 loops=1
+                      Buffers: shared hit=22148 read=1977
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_354_chunk  (cost=1.00..2359.59 rows=223606 width=16) (actual time=0.000..0.001 rows=380121 loops=1)
+                          Output: _hyper_10_354_chunk.energy_kwh, _hyper_10_354_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 3:  actual time=0.000..0.001 rows=380121 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_354_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.732..12.038 rows=4000 loops=1)
+                                Output: _hyper_10_354_chunk_compressed._ts_meta_count, _hyper_10_354_chunk_compressed.meter_id, _hyper_10_354_chunk_compressed._ts_meta_min_1, _hyper_10_354_chunk_compressed._ts_meta_max_1, _hyper_10_354_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_354_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_354_chunk_compressed.event_time, _hyper_10_354_chunk_compressed.received_time, _hyper_10_354_chunk_compressed.power_kw, _hyper_10_354_chunk_compressed.voltage_v, _hyper_10_354_chunk_compressed.current_a, _hyper_10_354_chunk_compressed.frequency_hz, _hyper_10_354_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 3:  actual time=0.732..12.038 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.58..5154.59 rows=1 width=64) (actual time=224.897..224.902 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_344_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_344_chunk.power_kw)), (PARTIAL min(_hyper_10_344_chunk.power_kw)), (PARTIAL max(_hyper_10_344_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22455 read=1670
+                    Worker 1:  actual time=224.897..224.902 rows=1 loops=1
+                      Buffers: shared hit=22455 read=1670
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_344_chunk  (cost=1.00..2359.55 rows=223602 width=16) (actual time=0.000..0.001 rows=380203 loops=1)
+                          Output: _hyper_10_344_chunk.energy_kwh, _hyper_10_344_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 1:  actual time=0.000..0.001 rows=380203 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_344_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.563..11.550 rows=4000 loops=1)
+                                Output: _hyper_10_344_chunk_compressed._ts_meta_count, _hyper_10_344_chunk_compressed.meter_id, _hyper_10_344_chunk_compressed._ts_meta_min_1, _hyper_10_344_chunk_compressed._ts_meta_max_1, _hyper_10_344_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_344_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_344_chunk_compressed.event_time, _hyper_10_344_chunk_compressed.received_time, _hyper_10_344_chunk_compressed.power_kw, _hyper_10_344_chunk_compressed.voltage_v, _hyper_10_344_chunk_compressed.current_a, _hyper_10_344_chunk_compressed.frequency_hz, _hyper_10_344_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 1:  actual time=0.563..11.550 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.34..5154.35 rows=1 width=64) (actual time=218.959..218.964 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_345_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_345_chunk.power_kw)), (PARTIAL min(_hyper_10_345_chunk.power_kw)), (PARTIAL max(_hyper_10_345_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22469 read=1656
+                    Worker 0:  actual time=218.959..218.964 rows=1 loops=1
+                      Buffers: shared hit=22469 read=1656
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_345_chunk  (cost=1.00..2359.44 rows=223591 width=16) (actual time=0.000..0.001 rows=380096 loops=1)
+                          Output: _hyper_10_345_chunk.energy_kwh, _hyper_10_345_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 0:  actual time=0.000..0.001 rows=380096 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_345_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.571..12.991 rows=4000 loops=1)
+                                Output: _hyper_10_345_chunk_compressed._ts_meta_count, _hyper_10_345_chunk_compressed.meter_id, _hyper_10_345_chunk_compressed._ts_meta_min_1, _hyper_10_345_chunk_compressed._ts_meta_max_1, _hyper_10_345_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_345_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_345_chunk_compressed.event_time, _hyper_10_345_chunk_compressed.received_time, _hyper_10_345_chunk_compressed.power_kw, _hyper_10_345_chunk_compressed.voltage_v, _hyper_10_345_chunk_compressed.current_a, _hyper_10_345_chunk_compressed.frequency_hz, _hyper_10_345_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 0:  actual time=0.571..12.991 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.32..5154.33 rows=1 width=64) (actual time=224.174..224.178 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_355_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_355_chunk.power_kw)), (PARTIAL min(_hyper_10_355_chunk.power_kw)), (PARTIAL max(_hyper_10_355_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22174 read=1951
+                    Worker 2:  actual time=224.174..224.178 rows=1 loops=1
+                      Buffers: shared hit=22174 read=1951
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_355_chunk  (cost=1.00..2359.44 rows=223591 width=16) (actual time=0.000..0.001 rows=380185 loops=1)
+                          Output: _hyper_10_355_chunk.energy_kwh, _hyper_10_355_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 2:  actual time=0.000..0.001 rows=380185 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_355_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.542..10.748 rows=4000 loops=1)
+                                Output: _hyper_10_355_chunk_compressed._ts_meta_count, _hyper_10_355_chunk_compressed.meter_id, _hyper_10_355_chunk_compressed._ts_meta_min_1, _hyper_10_355_chunk_compressed._ts_meta_max_1, _hyper_10_355_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_355_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_355_chunk_compressed.event_time, _hyper_10_355_chunk_compressed.received_time, _hyper_10_355_chunk_compressed.power_kw, _hyper_10_355_chunk_compressed.voltage_v, _hyper_10_355_chunk_compressed.current_a, _hyper_10_355_chunk_compressed.frequency_hz, _hyper_10_355_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.542..10.748 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.24..5154.25 rows=1 width=64) (actual time=173.341..173.347 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_332_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_332_chunk.power_kw)), (PARTIAL min(_hyper_10_332_chunk.power_kw)), (PARTIAL max(_hyper_10_332_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22447 read=1678
+                    Worker 4:  actual time=173.341..173.347 rows=1 loops=1
+                      Buffers: shared hit=22447 read=1678
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_332_chunk  (cost=1.00..2359.40 rows=223587 width=16) (actual time=0.000..0.001 rows=380089 loops=1)
+                          Output: _hyper_10_332_chunk.energy_kwh, _hyper_10_332_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 4:  actual time=0.000..0.001 rows=380089 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_332_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=1.022..11.222 rows=4000 loops=1)
+                                Output: _hyper_10_332_chunk_compressed._ts_meta_count, _hyper_10_332_chunk_compressed.meter_id, _hyper_10_332_chunk_compressed._ts_meta_min_1, _hyper_10_332_chunk_compressed._ts_meta_max_1, _hyper_10_332_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_332_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_332_chunk_compressed.event_time, _hyper_10_332_chunk_compressed.received_time, _hyper_10_332_chunk_compressed.power_kw, _hyper_10_332_chunk_compressed.voltage_v, _hyper_10_332_chunk_compressed.current_a, _hyper_10_332_chunk_compressed.frequency_hz, _hyper_10_332_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 4:  actual time=1.022..11.222 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5154.23..5154.24 rows=1 width=64) (actual time=147.259..147.263 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_349_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_349_chunk.power_kw)), (PARTIAL min(_hyper_10_349_chunk.power_kw)), (PARTIAL max(_hyper_10_349_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22471 read=1654
+                    Worker 1:  actual time=147.259..147.263 rows=1 loops=1
+                      Buffers: shared hit=22471 read=1654
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_349_chunk  (cost=1.00..2359.40 rows=223587 width=16) (actual time=0.000..0.001 rows=380088 loops=1)
+                          Output: _hyper_10_349_chunk.energy_kwh, _hyper_10_349_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 1:  actual time=0.000..0.001 rows=380088 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_349_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.832..10.312 rows=4000 loops=1)
+                                Output: _hyper_10_349_chunk_compressed._ts_meta_count, _hyper_10_349_chunk_compressed.meter_id, _hyper_10_349_chunk_compressed._ts_meta_min_1, _hyper_10_349_chunk_compressed._ts_meta_max_1, _hyper_10_349_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_349_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_349_chunk_compressed.event_time, _hyper_10_349_chunk_compressed.received_time, _hyper_10_349_chunk_compressed.power_kw, _hyper_10_349_chunk_compressed.voltage_v, _hyper_10_349_chunk_compressed.current_a, _hyper_10_349_chunk_compressed.frequency_hz, _hyper_10_349_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 1:  actual time=0.832..10.312 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5153.95..5153.96 rows=1 width=64) (actual time=178.450..178.455 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_356_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_356_chunk.power_kw)), (PARTIAL min(_hyper_10_356_chunk.power_kw)), (PARTIAL max(_hyper_10_356_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22179 read=1946
+                    Worker 0:  actual time=178.450..178.455 rows=1 loops=1
+                      Buffers: shared hit=22179 read=1946
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_356_chunk  (cost=1.00..2359.27 rows=223574 width=16) (actual time=0.000..0.001 rows=380157 loops=1)
+                          Output: _hyper_10_356_chunk.energy_kwh, _hyper_10_356_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 0:  actual time=0.000..0.001 rows=380157 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_356_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.764..7.834 rows=4000 loops=1)
+                                Output: _hyper_10_356_chunk_compressed._ts_meta_count, _hyper_10_356_chunk_compressed.meter_id, _hyper_10_356_chunk_compressed._ts_meta_min_1, _hyper_10_356_chunk_compressed._ts_meta_max_1, _hyper_10_356_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_356_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_356_chunk_compressed.event_time, _hyper_10_356_chunk_compressed.received_time, _hyper_10_356_chunk_compressed.power_kw, _hyper_10_356_chunk_compressed.voltage_v, _hyper_10_356_chunk_compressed.current_a, _hyper_10_356_chunk_compressed.frequency_hz, _hyper_10_356_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 0:  actual time=0.764..7.834 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5153.85..5153.86 rows=1 width=64) (actual time=122.829..122.834 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_340_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_340_chunk.power_kw)), (PARTIAL min(_hyper_10_340_chunk.power_kw)), (PARTIAL max(_hyper_10_340_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22457 read=1668
+                    Worker 3:  actual time=122.829..122.834 rows=1 loops=1
+                      Buffers: shared hit=22457 read=1668
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_340_chunk  (cost=1.00..2359.23 rows=223570 width=16) (actual time=0.000..0.001 rows=380149 loops=1)
+                          Output: _hyper_10_340_chunk.energy_kwh, _hyper_10_340_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 3:  actual time=0.000..0.001 rows=380149 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_340_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.974..8.484 rows=4000 loops=1)
+                                Output: _hyper_10_340_chunk_compressed._ts_meta_count, _hyper_10_340_chunk_compressed.meter_id, _hyper_10_340_chunk_compressed._ts_meta_min_1, _hyper_10_340_chunk_compressed._ts_meta_max_1, _hyper_10_340_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_340_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_340_chunk_compressed.event_time, _hyper_10_340_chunk_compressed.received_time, _hyper_10_340_chunk_compressed.power_kw, _hyper_10_340_chunk_compressed.voltage_v, _hyper_10_340_chunk_compressed.current_a, _hyper_10_340_chunk_compressed.frequency_hz, _hyper_10_340_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 3:  actual time=0.974..8.484 rows=4000 loops=1
+                                  Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5153.77..5153.78 rows=1 width=64) (actual time=38.794..38.797 rows=1 loops=3)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_352_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_352_chunk.power_kw)), (PARTIAL min(_hyper_10_352_chunk.power_kw)), (PARTIAL max(_hyper_10_352_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22192 read=1958
+                    Worker 0:  actual time=35.631..35.634 rows=1 loops=1
+                      Buffers: shared hit=7553 read=666
+                    Worker 1:  actual time=80.747..80.751 rows=1 loops=1
+                      Buffers: shared hit=14639 read=1292
+                    Worker 2:  actual time=0.005..0.005 rows=0 loops=1
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_352_chunk  (cost=1.00..2359.19 rows=223566 width=16) (actual time=0.000..0.000 rows=190026 loops=2)
+                          Output: _hyper_10_352_chunk.energy_kwh, _hyper_10_352_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 0:  actual time=0.000..0.000 rows=129238 loops=1
+                          Worker 1:  actual time=0.000..0.001 rows=250815 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_352_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.365..1.804 rows=1333 loops=3)
+                                Output: _hyper_10_352_chunk_compressed._ts_meta_count, _hyper_10_352_chunk_compressed.meter_id, _hyper_10_352_chunk_compressed._ts_meta_min_1, _hyper_10_352_chunk_compressed._ts_meta_max_1, _hyper_10_352_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_352_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_352_chunk_compressed.event_time, _hyper_10_352_chunk_compressed.received_time, _hyper_10_352_chunk_compressed.power_kw, _hyper_10_352_chunk_compressed.voltage_v, _hyper_10_352_chunk_compressed.current_a, _hyper_10_352_chunk_compressed.frequency_hz, _hyper_10_352_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 0:  actual time=0.366..1.653 rows=1360 loops=1
+                                  Buffers: shared read=34
+                                Worker 1:  actual time=0.726..3.756 rows=2640 loops=1
+                                  Buffers: shared read=66
+                                Worker 2:  actual time=0.002..0.002 rows=0 loops=1
+              ->  Custom Scan (VectorAgg)  (cost=5153.50..5153.51 rows=1 width=64) (actual time=51.279..51.282 rows=1 loops=2)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_342_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_342_chunk.power_kw)), (PARTIAL min(_hyper_10_342_chunk.power_kw)), (PARTIAL max(_hyper_10_342_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22485 read=1665
+                    Worker 2:  actual time=70.698..70.701 rows=1 loops=1
+                      Buffers: shared hit=15967 read=1169
+                    Worker 3:  actual time=31.860..31.863 rows=1 loops=1
+                      Buffers: shared hit=6518 read=496
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_342_chunk  (cost=1.00..2359.07 rows=223554 width=16) (actual time=0.000..0.000 rows=190062 loops=2)
+                          Output: _hyper_10_342_chunk.energy_kwh, _hyper_10_342_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 2:  actual time=0.000..0.000 rows=269885 loops=1
+                          Worker 3:  actual time=0.000..0.000 rows=110238 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_342_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.371..3.378 rows=2000 loops=2)
+                                Output: _hyper_10_342_chunk_compressed._ts_meta_count, _hyper_10_342_chunk_compressed.meter_id, _hyper_10_342_chunk_compressed._ts_meta_min_1, _hyper_10_342_chunk_compressed._ts_meta_max_1, _hyper_10_342_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_342_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_342_chunk_compressed.event_time, _hyper_10_342_chunk_compressed.received_time, _hyper_10_342_chunk_compressed.power_kw, _hyper_10_342_chunk_compressed.voltage_v, _hyper_10_342_chunk_compressed.current_a, _hyper_10_342_chunk_compressed.frequency_hz, _hyper_10_342_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.677..4.799 rows=2840 loops=1
+                                  Buffers: shared read=71
+                                Worker 3:  actual time=0.066..1.957 rows=1160 loops=1
+                                  Buffers: shared read=29
+              ->  Custom Scan (VectorAgg)  (cost=5153.46..5153.47 rows=1 width=64) (actual time=50.413..50.418 rows=1 loops=3)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_357_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_357_chunk.power_kw)), (PARTIAL min(_hyper_10_357_chunk.power_kw)), (PARTIAL max(_hyper_10_357_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22187 read=1963
+                    Worker 2:  actual time=0.005..0.006 rows=0 loops=1
+                    Worker 4:  actual time=84.554..84.558 rows=1 loops=1
+                      Buffers: shared hit=14641 read=1290
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_357_chunk  (cost=1.00..2359.06 rows=223553 width=16) (actual time=0.000..0.001 rows=190060 loops=2)
+                          Output: _hyper_10_357_chunk.energy_kwh, _hyper_10_357_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 4:  actual time=0.000..0.001 rows=250894 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_357_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.237..1.987 rows=1333 loops=3)
+                                Output: _hyper_10_357_chunk_compressed._ts_meta_count, _hyper_10_357_chunk_compressed.meter_id, _hyper_10_357_chunk_compressed._ts_meta_min_1, _hyper_10_357_chunk_compressed._ts_meta_max_1, _hyper_10_357_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_357_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_357_chunk_compressed.event_time, _hyper_10_357_chunk_compressed.received_time, _hyper_10_357_chunk_compressed.power_kw, _hyper_10_357_chunk_compressed.voltage_v, _hyper_10_357_chunk_compressed.current_a, _hyper_10_357_chunk_compressed.frequency_hz, _hyper_10_357_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 2:  actual time=0.003..0.003 rows=0 loops=1
+                                Worker 4:  actual time=0.689..4.474 rows=2640 loops=1
+                                  Buffers: shared read=66
+              ->  Custom Scan (VectorAgg)  (cost=5153.37..5153.38 rows=1 width=64) (actual time=43.505..43.508 rows=1 loops=2)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_338_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_338_chunk.power_kw)), (PARTIAL min(_hyper_10_338_chunk.power_kw)), (PARTIAL max(_hyper_10_338_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22481 read=1669
+                    Worker 3:  actual time=22.580..22.585 rows=1 loops=1
+                      Buffers: shared hit=5845 read=446
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_338_chunk  (cost=1.00..2359.01 rows=223549 width=16) (actual time=0.000..0.001 rows=190056 loops=2)
+                          Output: _hyper_10_338_chunk.energy_kwh, _hyper_10_338_chunk.power_kw
+                          Bulk Decompression: true
+                          Worker 3:  actual time=0.000..0.001 rows=98835 loops=1
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_338_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.339..2.381 rows=2000 loops=2)
+                                Output: _hyper_10_338_chunk_compressed._ts_meta_count, _hyper_10_338_chunk_compressed.meter_id, _hyper_10_338_chunk_compressed._ts_meta_min_1, _hyper_10_338_chunk_compressed._ts_meta_max_1, _hyper_10_338_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_338_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_338_chunk_compressed.event_time, _hyper_10_338_chunk_compressed.received_time, _hyper_10_338_chunk_compressed.power_kw, _hyper_10_338_chunk_compressed.voltage_v, _hyper_10_338_chunk_compressed.current_a, _hyper_10_338_chunk_compressed.frequency_hz, _hyper_10_338_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+                                Worker 3:  actual time=0.066..0.763 rows=1040 loops=1
+                                  Buffers: shared read=26
+              ->  Custom Scan (VectorAgg)  (cost=5153.32..5153.33 rows=1 width=64) (actual time=208.761..208.766 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_335_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_335_chunk.power_kw)), (PARTIAL min(_hyper_10_335_chunk.power_kw)), (PARTIAL max(_hyper_10_335_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22464 read=1661
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_335_chunk  (cost=1.00..2358.99 rows=223546 width=16) (actual time=0.000..0.001 rows=380019 loops=1)
+                          Output: _hyper_10_335_chunk.energy_kwh, _hyper_10_335_chunk.power_kw
+                          Bulk Decompression: true
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_335_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.923..12.448 rows=4000 loops=1)
+                                Output: _hyper_10_335_chunk_compressed._ts_meta_count, _hyper_10_335_chunk_compressed.meter_id, _hyper_10_335_chunk_compressed._ts_meta_min_1, _hyper_10_335_chunk_compressed._ts_meta_max_1, _hyper_10_335_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_335_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_335_chunk_compressed.event_time, _hyper_10_335_chunk_compressed.received_time, _hyper_10_335_chunk_compressed.power_kw, _hyper_10_335_chunk_compressed.voltage_v, _hyper_10_335_chunk_compressed.current_a, _hyper_10_335_chunk_compressed.frequency_hz, _hyper_10_335_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5153.21..5153.22 rows=1 width=64) (actual time=154.958..154.963 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_346_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_346_chunk.power_kw)), (PARTIAL min(_hyper_10_346_chunk.power_kw)), (PARTIAL max(_hyper_10_346_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22452 read=1673
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_346_chunk  (cost=1.00..2358.94 rows=223541 width=16) (actual time=0.000..0.001 rows=380100 loops=1)
+                          Output: _hyper_10_346_chunk.energy_kwh, _hyper_10_346_chunk.power_kw
+                          Bulk Decompression: true
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_346_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.718..7.342 rows=4000 loops=1)
+                                Output: _hyper_10_346_chunk_compressed._ts_meta_count, _hyper_10_346_chunk_compressed.meter_id, _hyper_10_346_chunk_compressed._ts_meta_min_1, _hyper_10_346_chunk_compressed._ts_meta_max_1, _hyper_10_346_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_346_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_346_chunk_compressed.event_time, _hyper_10_346_chunk_compressed.received_time, _hyper_10_346_chunk_compressed.power_kw, _hyper_10_346_chunk_compressed.voltage_v, _hyper_10_346_chunk_compressed.current_a, _hyper_10_346_chunk_compressed.frequency_hz, _hyper_10_346_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=5153.05..5153.06 rows=1 width=64) (actual time=287.066..287.071 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_333_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_333_chunk.power_kw)), (PARTIAL min(_hyper_10_333_chunk.power_kw)), (PARTIAL max(_hyper_10_333_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22434 read=1691
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_333_chunk  (cost=1.00..2358.87 rows=223534 width=16) (actual time=0.000..0.001 rows=380087 loops=1)
+                          Output: _hyper_10_333_chunk.energy_kwh, _hyper_10_333_chunk.power_kw
+                          Bulk Decompression: true
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_333_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.723..12.346 rows=4000 loops=1)
+                                Output: _hyper_10_333_chunk_compressed._ts_meta_count, _hyper_10_333_chunk_compressed.meter_id, _hyper_10_333_chunk_compressed._ts_meta_min_1, _hyper_10_333_chunk_compressed._ts_meta_max_1, _hyper_10_333_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_333_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_333_chunk_compressed.event_time, _hyper_10_333_chunk_compressed.received_time, _hyper_10_333_chunk_compressed.power_kw, _hyper_10_333_chunk_compressed.voltage_v, _hyper_10_333_chunk_compressed.current_a, _hyper_10_333_chunk_compressed.frequency_hz, _hyper_10_333_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=4735.05..4735.06 rows=1 width=64) (actual time=186.778..186.783 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_359_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_359_chunk.power_kw)), (PARTIAL min(_hyper_10_359_chunk.power_kw)), (PARTIAL max(_hyper_10_359_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared hit=22024 read=2101
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_359_chunk  (cost=0.92..2173.09 rows=204956 width=16) (actual time=0.000..0.001 rows=348417 loops=1)
+                          Output: _hyper_10_359_chunk.energy_kwh, _hyper_10_359_chunk.power_kw
+                          Bulk Decompression: true
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_359_chunk_compressed  (cost=0.00..123.53 rows=2353 width=68) (actual time=0.610..10.905 rows=4000 loops=1)
+                                Output: _hyper_10_359_chunk_compressed._ts_meta_count, _hyper_10_359_chunk_compressed.meter_id, _hyper_10_359_chunk_compressed._ts_meta_min_1, _hyper_10_359_chunk_compressed._ts_meta_max_1, _hyper_10_359_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_359_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_359_chunk_compressed.event_time, _hyper_10_359_chunk_compressed.received_time, _hyper_10_359_chunk_compressed.power_kw, _hyper_10_359_chunk_compressed.voltage_v, _hyper_10_359_chunk_compressed.current_a, _hyper_10_359_chunk_compressed.frequency_hz, _hyper_10_359_chunk_compressed.energy_kwh
+                                Buffers: shared read=100
+              ->  Custom Scan (VectorAgg)  (cost=955.32..955.33 rows=1 width=64) (actual time=19.305..19.313 rows=1 loops=1)
+                    Output: (PARTIAL count(*)), (PARTIAL sum(_hyper_10_331_chunk.energy_kwh)), (PARTIAL avg(_hyper_10_331_chunk.power_kw)), (PARTIAL min(_hyper_10_331_chunk.power_kw)), (PARTIAL max(_hyper_10_331_chunk.power_kw))
+                    Grouping Policy: all compressed batches
+                    Buffers: shared read=512
+                    ->  Custom Scan (ColumnarScan) on _timescaledb_internal._hyper_10_331_chunk  (cost=0.31..722.10 rows=18658 width=16) (actual time=0.000..0.001 rows=31717 loops=1)
+                          Output: _hyper_10_331_chunk.energy_kwh, _hyper_10_331_chunk.power_kw
+                          Bulk Decompression: true
+                          ->  Parallel Seq Scan on _timescaledb_internal._hyper_10_331_chunk_compressed  (cost=0.00..535.53 rows=2353 width=68) (actual time=0.499..10.732 rows=4000 loops=1)
+                                Output: _hyper_10_331_chunk_compressed._ts_meta_count, _hyper_10_331_chunk_compressed.meter_id, _hyper_10_331_chunk_compressed._ts_meta_min_1, _hyper_10_331_chunk_compressed._ts_meta_max_1, _hyper_10_331_chunk_compressed._ts_meta_v2_first_event_time, _hyper_10_331_chunk_compressed._ts_meta_v2_last_event_time, _hyper_10_331_chunk_compressed.event_time, _hyper_10_331_chunk_compressed.received_time, _hyper_10_331_chunk_compressed.power_kw, _hyper_10_331_chunk_compressed.voltage_v, _hyper_10_331_chunk_compressed.current_a, _hyper_10_331_chunk_compressed.frequency_hz, _hyper_10_331_chunk_compressed.energy_kwh
+                                Buffers: shared read=512
+Planning:
+  Buffers: shared hit=6624 read=117
+Planning Time: 131.331 ms
+Execution Time: 996.317 ms

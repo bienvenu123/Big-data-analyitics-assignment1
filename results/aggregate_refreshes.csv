@@ -1,0 +1,4 @@
+view,materialization_hypertable,refresh_start_CAT,refresh_end_CAT,refresh_seconds,materialized_rows,data_bytes,index_bytes,total_bytes
+energy_15m_region,_timescaledb_internal._materialized_hypertable_11,2026-10-02T11:00:56.071961+02:00,2026-10-02T11:01:11.673614+02:00,15.601641199995356,26880,2211840,2138112,4349952
+energy_hour_region,_timescaledb_internal._materialized_hypertable_12,2026-10-02T11:01:11.701498+02:00,2026-10-02T11:01:18.792355+02:00,7.090847800005577,6720,671744,622592,1294336
+energy_day_meter,_timescaledb_internal._materialized_hypertable_13,2026-10-02T11:01:18.804513+02:00,2026-10-02T11:01:30.866379+02:00,12.06185849999747,112000,7766016,5398528,13164544

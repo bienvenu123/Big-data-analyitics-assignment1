@@ -1,0 +1,8 @@
+{
+  "generated": 2000,
+  "acknowledged": 2000,
+  "expected": 2000,
+  "elapsed_seconds": 2.262,
+  "qos": 1,
+  "retain": false
+}

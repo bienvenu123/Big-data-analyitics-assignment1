@@ -1,0 +1,6 @@
+panel,compared_rows,max_abs_energy_diff_kwh,reading_count_mismatches,max_abs_completeness_diff_percentage_points
+hourly_regional_energy,1680,3.637978807091713e-12,0,
+daily_network_energy,7,4.743924364447594e-09,0,
+seven_day_network_energy,1,9.080395102500916e-09,0,
+selected_meter_daily_energy,7,0.0,0,
+regional_completeness,10,0,0,0E-16

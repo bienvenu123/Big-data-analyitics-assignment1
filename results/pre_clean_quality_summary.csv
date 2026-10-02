@@ -1,0 +1,2 @@
+emitted_rows,unique_pairs,extra_copies,delayed_unique,conflicting_pairs,missing_pairs,missing_pct,duplicate_pct,delayed_pct,completeness_pct
+10696848,10643735,53113,213090,0,108265,1.006929,0.499007,2.002023,98.993071

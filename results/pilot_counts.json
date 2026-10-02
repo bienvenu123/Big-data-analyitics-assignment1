@@ -1,0 +1,11 @@
+{
+  "start_CAT": "2026-10-02T11:16:27.124+02:00",
+  "end_CAT": "2026-10-02T11:16:29.845+02:00",
+  "elapsed_seconds": 2.721,
+  "generated": 2000,
+  "acknowledged": 2000,
+  "received": 2000,
+  "stored": 2000,
+  "qos": 1,
+  "retain": false
+}

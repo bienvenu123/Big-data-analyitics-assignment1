@@ -1,0 +1,8 @@
+feature,lag_hours,earliest_data_target
+region,none,2026-09-01
+hour,none,2026-09-01
+dow,none,2026-09-01
+day_of_year,none,2026-09-01
+lag_24h,24,2026-09-02
+lag_168h,168,2026-09-08
+prior_week_same_hour_mean,"24, 192, 360, 528, 696, 864, 1032",2026-09-02
