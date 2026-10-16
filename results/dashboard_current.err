@@ -1,0 +1,14 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8050
+Press CTRL+C to quit
+127.0.0.1 - - [15/Oct/2026 12:11:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:11:35] "GET /_dash-layout HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:14:09] "GET /_dash-layout HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:21:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:21:56] "GET /_dash-dependencies HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:21:56] "GET /_dash-layout HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:21:56] "GET /_dash-component-suites/dash/dcc/async-datepicker.js HTTP/1.1" 304 -
+127.0.0.1 - - [15/Oct/2026 12:21:56] "GET /_dash-component-suites/dash/dcc/async-graph.js HTTP/1.1" 304 -
+127.0.0.1 - - [15/Oct/2026 12:21:56] "GET /_dash-component-suites/plotly/package_data/plotly.min.js HTTP/1.1" 304 -
+127.0.0.1 - - [15/Oct/2026 12:21:57] "POST /_dash-update-component HTTP/1.1" 200 -
+127.0.0.1 - - [15/Oct/2026 12:22:02] "POST /_dash-update-component HTTP/1.1" 200 -

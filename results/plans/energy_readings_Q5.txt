@@ -1,322 +1,326 @@
-Finalize Aggregate  (cost=223312.30..223312.31 rows=1 width=40) (actual time=456.735..467.869 rows=1 loops=1)
+Finalize Aggregate  (cost=222990.30..222990.31 rows=1 width=40) (actual time=6153.103..6189.086 rows=1 loops=1)
   Output: count(*), sum(energy_readings.energy_kwh), avg(energy_readings.power_kw), min(energy_readings.power_kw), max(energy_readings.power_kw)
-  Buffers: shared hit=120579 read=1825
-  ->  Gather  (cost=8955.91..223312.23 rows=5 width=64) (actual time=8.267..467.817 rows=38 loops=1)
+  Buffers: shared hit=59 read=122023 written=3
+  ->  Gather  (cost=8934.47..222990.23 rows=5 width=64) (actual time=103.773..6188.606 rows=39 loops=1)
         Output: (PARTIAL count(*)), (PARTIAL sum(energy_readings.energy_kwh)), (PARTIAL avg(energy_readings.power_kw)), (PARTIAL min(energy_readings.power_kw)), (PARTIAL max(energy_readings.power_kw))
         Workers Planned: 5
         Workers Launched: 5
-        Buffers: shared hit=120579 read=1825
-        ->  Parallel Append  (cost=7955.91..222311.73 rows=1 width=64) (actual time=77.701..441.695 rows=6 loops=6)
-              Buffers: shared hit=120579 read=1825
-              Worker 0:  actual time=94.670..442.279 rows=6 loops=1
-                Buffers: shared hit=19122 read=291
-              Worker 1:  actual time=101.409..435.298 rows=7 loops=1
-                Buffers: shared hit=19603 read=267
-              Worker 2:  actual time=88.651..442.306 rows=7 loops=1
-                Buffers: shared hit=21048 read=362
-              Worker 3:  actual time=87.931..436.854 rows=5 loops=1
-                Buffers: shared hit=20107 read=361
-              Worker 4:  actual time=86.731..438.959 rows=6 loops=1
-                Buffers: shared hit=20432 read=304
-              ->  Partial Aggregate  (cost=7979.33..7979.34 rows=1 width=64) (actual time=88.649..88.650 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_31_chunk.energy_kwh), PARTIAL avg(_hyper_1_31_chunk.power_kw), PARTIAL min(_hyper_1_31_chunk.power_kw), PARTIAL max(_hyper_1_31_chunk.power_kw)
-                    Buffers: shared hit=4342 read=74
-                    Worker 2:  actual time=88.649..88.650 rows=1 loops=1
-                      Buffers: shared hit=4342 read=74
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_31_chunk  (cost=0.00..5999.70 rows=158370 width=16) (actual time=0.009..51.198 rows=380089 loops=1)
-                          Output: _hyper_1_31_chunk.energy_kwh, _hyper_1_31_chunk.power_kw
-                          Buffers: shared hit=4342 read=74
-                          Worker 2:  actual time=0.009..51.198 rows=380089 loops=1
-                            Buffers: shared hit=4342 read=74
-              ->  Partial Aggregate  (cost=7964.47..7964.48 rows=1 width=64) (actual time=94.669..94.669 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_49_chunk.energy_kwh), PARTIAL avg(_hyper_1_49_chunk.power_kw), PARTIAL min(_hyper_1_49_chunk.power_kw), PARTIAL max(_hyper_1_49_chunk.power_kw)
-                    Buffers: shared hit=4344 read=56
-                    Worker 0:  actual time=94.669..94.669 rows=1 loops=1
-                      Buffers: shared hit=4344 read=56
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_49_chunk  (cost=0.00..5984.21 rows=158421 width=16) (actual time=0.011..54.657 rows=380211 loops=1)
-                          Output: _hyper_1_49_chunk.energy_kwh, _hyper_1_49_chunk.power_kw
-                          Buffers: shared hit=4344 read=56
-                          Worker 0:  actual time=0.011..54.657 rows=380211 loops=1
-                            Buffers: shared hit=4344 read=56
-              ->  Partial Aggregate  (cost=7963.62..7963.63 rows=1 width=64) (actual time=86.729..86.730 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_56_chunk.energy_kwh), PARTIAL avg(_hyper_1_56_chunk.power_kw), PARTIAL min(_hyper_1_56_chunk.power_kw), PARTIAL max(_hyper_1_56_chunk.power_kw)
-                    Buffers: shared hit=4342 read=58
-                    Worker 4:  actual time=86.729..86.730 rows=1 loops=1
-                      Buffers: shared hit=4342 read=58
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_56_chunk  (cost=0.00..5983.83 rows=158383 width=16) (actual time=0.023..49.305 rows=380119 loops=1)
-                          Output: _hyper_1_56_chunk.energy_kwh, _hyper_1_56_chunk.power_kw
-                          Buffers: shared hit=4342 read=58
-                          Worker 4:  actual time=0.023..49.305 rows=380119 loops=1
-                            Buffers: shared hit=4342 read=58
-              ->  Partial Aggregate  (cost=7963.32..7963.34 rows=1 width=64) (actual time=87.930..87.930 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_48_chunk.energy_kwh), PARTIAL avg(_hyper_1_48_chunk.power_kw), PARTIAL min(_hyper_1_48_chunk.power_kw), PARTIAL max(_hyper_1_48_chunk.power_kw)
-                    Buffers: shared hit=4341 read=59
-                    Worker 3:  actual time=87.930..87.930 rows=1 loops=1
-                      Buffers: shared hit=4341 read=59
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_48_chunk  (cost=0.00..5983.70 rows=158370 width=16) (actual time=0.027..49.966 rows=380088 loops=1)
-                          Output: _hyper_1_48_chunk.energy_kwh, _hyper_1_48_chunk.power_kw
-                          Buffers: shared hit=4341 read=59
-                          Worker 3:  actual time=0.027..49.966 rows=380088 loops=1
-                            Buffers: shared hit=4341 read=59
-              ->  Partial Aggregate  (cost=7955.91..7955.92 rows=1 width=64) (actual time=101.407..101.408 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_33_chunk.energy_kwh), PARTIAL avg(_hyper_1_33_chunk.power_kw), PARTIAL min(_hyper_1_33_chunk.power_kw), PARTIAL max(_hyper_1_33_chunk.power_kw)
-                    Buffers: shared hit=4342 read=50
-                    Worker 1:  actual time=101.407..101.408 rows=1 loops=1
-                      Buffers: shared hit=4342 read=50
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_33_chunk  (cost=0.00..5975.96 rows=158396 width=16) (actual time=0.019..58.423 rows=380151 loops=1)
-                          Output: _hyper_1_33_chunk.energy_kwh, _hyper_1_33_chunk.power_kw
-                          Buffers: shared hit=4342 read=50
-                          Worker 1:  actual time=0.019..58.423 rows=380151 loops=1
-                            Buffers: shared hit=4342 read=50
-              ->  Partial Aggregate  (cost=7955.91..7955.92 rows=1 width=64) (actual time=106.147..106.148 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_42_chunk.energy_kwh), PARTIAL avg(_hyper_1_42_chunk.power_kw), PARTIAL min(_hyper_1_42_chunk.power_kw), PARTIAL max(_hyper_1_42_chunk.power_kw)
-                    Buffers: shared hit=4175 read=217
-                    Worker 2:  actual time=106.147..106.148 rows=1 loops=1
-                      Buffers: shared hit=4175 read=217
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_42_chunk  (cost=0.00..5975.96 rows=158396 width=16) (actual time=0.008..72.804 rows=380151 loops=1)
-                          Output: _hyper_1_42_chunk.energy_kwh, _hyper_1_42_chunk.power_kw
-                          Buffers: shared hit=4175 read=217
-                          Worker 2:  actual time=0.008..72.804 rows=380151 loops=1
-                            Buffers: shared hit=4175 read=217
-              ->  Partial Aggregate  (cost=7955.44..7955.45 rows=1 width=64) (actual time=114.979..114.980 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_45_chunk.energy_kwh), PARTIAL avg(_hyper_1_45_chunk.power_kw), PARTIAL min(_hyper_1_45_chunk.power_kw), PARTIAL max(_hyper_1_45_chunk.power_kw)
-                    Buffers: shared hit=4206 read=186
-                    Worker 4:  actual time=114.979..114.980 rows=1 loops=1
-                      Buffers: shared hit=4206 read=186
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_45_chunk  (cost=0.00..5975.75 rows=158375 width=16) (actual time=0.011..76.380 rows=380100 loops=1)
-                          Output: _hyper_1_45_chunk.energy_kwh, _hyper_1_45_chunk.power_kw
-                          Buffers: shared hit=4206 read=186
-                          Worker 4:  actual time=0.011..76.380 rows=380100 loops=1
-                            Buffers: shared hit=4206 read=186
-              ->  Partial Aggregate  (cost=7947.96..7947.97 rows=1 width=64) (actual time=130.842..130.842 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_46_chunk.energy_kwh), PARTIAL avg(_hyper_1_46_chunk.power_kw), PARTIAL min(_hyper_1_46_chunk.power_kw), PARTIAL max(_hyper_1_46_chunk.power_kw)
-                    Buffers: shared hit=4119 read=265
-                    Worker 3:  actual time=130.842..130.842 rows=1 loops=1
-                      Buffers: shared hit=4119 read=265
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_46_chunk  (cost=0.00..5967.98 rows=158398 width=16) (actual time=0.014..89.675 rows=380156 loops=1)
-                          Output: _hyper_1_46_chunk.energy_kwh, _hyper_1_46_chunk.power_kw
-                          Buffers: shared hit=4119 read=265
-                          Worker 3:  actual time=0.014..89.675 rows=380156 loops=1
-                            Buffers: shared hit=4119 read=265
-              ->  Partial Aggregate  (cost=7947.93..7947.94 rows=1 width=64) (actual time=111.636..111.636 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_52_chunk.energy_kwh), PARTIAL avg(_hyper_1_52_chunk.power_kw), PARTIAL min(_hyper_1_52_chunk.power_kw), PARTIAL max(_hyper_1_52_chunk.power_kw)
-                    Buffers: shared hit=4208 read=176
-                    Worker 0:  actual time=111.636..111.636 rows=1 loops=1
-                      Buffers: shared hit=4208 read=176
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_52_chunk  (cost=0.00..5967.97 rows=158397 width=16) (actual time=0.008..73.567 rows=380152 loops=1)
-                          Output: _hyper_1_52_chunk.energy_kwh, _hyper_1_52_chunk.power_kw
-                          Buffers: shared hit=4208 read=176
-                          Worker 0:  actual time=0.008..73.567 rows=380152 loops=1
-                            Buffers: shared hit=4208 read=176
-              ->  Partial Aggregate  (cost=7947.88..7947.89 rows=1 width=64) (actual time=100.565..100.566 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_57_chunk.energy_kwh), PARTIAL avg(_hyper_1_57_chunk.power_kw), PARTIAL min(_hyper_1_57_chunk.power_kw), PARTIAL max(_hyper_1_57_chunk.power_kw)
-                    Buffers: shared hit=4216 read=168
-                    Worker 1:  actual time=100.565..100.566 rows=1 loops=1
-                      Buffers: shared hit=4216 read=168
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_57_chunk  (cost=0.00..5967.95 rows=158395 width=16) (actual time=0.013..65.749 rows=380147 loops=1)
-                          Output: _hyper_1_57_chunk.energy_kwh, _hyper_1_57_chunk.power_kw
-                          Buffers: shared hit=4216 read=168
-                          Worker 1:  actual time=0.013..65.749 rows=380147 loops=1
-                            Buffers: shared hit=4216 read=168
-              ->  Partial Aggregate  (cost=7940.40..7940.41 rows=1 width=64) (actual time=78.798..78.799 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_43_chunk.energy_kwh), PARTIAL avg(_hyper_1_43_chunk.power_kw), PARTIAL min(_hyper_1_43_chunk.power_kw), PARTIAL max(_hyper_1_43_chunk.power_kw)
-                    Buffers: shared hit=4343 read=33
-                    Worker 2:  actual time=78.798..78.799 rows=1 loops=1
-                      Buffers: shared hit=4343 read=33
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_43_chunk  (cost=0.00..5960.18 rows=158418 width=16) (actual time=0.009..43.902 rows=380203 loops=1)
-                          Output: _hyper_1_43_chunk.energy_kwh, _hyper_1_43_chunk.power_kw
-                          Buffers: shared hit=4343 read=33
-                          Worker 2:  actual time=0.009..43.902 rows=380203 loops=1
-                            Buffers: shared hit=4343 read=33
-              ->  Partial Aggregate  (cost=7940.23..7940.24 rows=1 width=64) (actual time=83.018..83.019 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_54_chunk.energy_kwh), PARTIAL avg(_hyper_1_54_chunk.power_kw), PARTIAL min(_hyper_1_54_chunk.power_kw), PARTIAL max(_hyper_1_54_chunk.power_kw)
-                    Buffers: shared hit=4342 read=34
-                    Worker 4:  actual time=83.018..83.019 rows=1 loops=1
-                      Buffers: shared hit=4342 read=34
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_54_chunk  (cost=0.00..5960.10 rows=158410 width=16) (actual time=0.009..46.033 rows=380185 loops=1)
-                          Output: _hyper_1_54_chunk.energy_kwh, _hyper_1_54_chunk.power_kw
-                          Buffers: shared hit=4342 read=34
-                          Worker 4:  actual time=0.009..46.033 rows=380185 loops=1
-                            Buffers: shared hit=4342 read=34
-              ->  Partial Aggregate  (cost=7939.64..7939.65 rows=1 width=64) (actual time=92.565..92.566 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_53_chunk.energy_kwh), PARTIAL avg(_hyper_1_53_chunk.power_kw), PARTIAL min(_hyper_1_53_chunk.power_kw), PARTIAL max(_hyper_1_53_chunk.power_kw)
-                    Buffers: shared hit=4341 read=35
-                    Worker 0:  actual time=92.565..92.566 rows=1 loops=1
-                      Buffers: shared hit=4341 read=35
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_53_chunk  (cost=0.00..5959.84 rows=158384 width=16) (actual time=0.011..52.163 rows=380121 loops=1)
-                          Output: _hyper_1_53_chunk.energy_kwh, _hyper_1_53_chunk.power_kw
-                          Buffers: shared hit=4341 read=35
-                          Worker 0:  actual time=0.011..52.163 rows=380121 loops=1
-                            Buffers: shared hit=4341 read=35
-              ->  Partial Aggregate  (cost=7931.68..7931.69 rows=1 width=64) (actual time=81.900..81.901 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_35_chunk.energy_kwh), PARTIAL avg(_hyper_1_35_chunk.power_kw), PARTIAL min(_hyper_1_35_chunk.power_kw), PARTIAL max(_hyper_1_35_chunk.power_kw)
-                    Buffers: shared hit=4342 read=26
-                    Worker 1:  actual time=81.900..81.901 rows=1 loops=1
-                      Buffers: shared hit=4342 read=26
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_35_chunk  (cost=0.00..5951.86 rows=158386 width=16) (actual time=0.009..45.414 rows=380126 loops=1)
-                          Output: _hyper_1_35_chunk.energy_kwh, _hyper_1_35_chunk.power_kw
-                          Buffers: shared hit=4342 read=26
-                          Worker 1:  actual time=0.009..45.414 rows=380126 loops=1
-                            Buffers: shared hit=4342 read=26
-              ->  Partial Aggregate  (cost=7931.64..7931.65 rows=1 width=64) (actual time=75.513..75.514 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_38_chunk.energy_kwh), PARTIAL avg(_hyper_1_38_chunk.power_kw), PARTIAL min(_hyper_1_38_chunk.power_kw), PARTIAL max(_hyper_1_38_chunk.power_kw)
-                    Buffers: shared hit=4341 read=27
-                    Worker 3:  actual time=75.513..75.514 rows=1 loops=1
-                      Buffers: shared hit=4341 read=27
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_38_chunk  (cost=0.00..5951.84 rows=158384 width=16) (actual time=0.012..42.976 rows=380122 loops=1)
-                          Output: _hyper_1_38_chunk.energy_kwh, _hyper_1_38_chunk.power_kw
-                          Buffers: shared hit=4341 read=27
-                          Worker 3:  actual time=0.012..42.976 rows=380122 loops=1
-                            Buffers: shared hit=4341 read=27
-              ->  Partial Aggregate  (cost=7930.68..7930.69 rows=1 width=64) (actual time=91.997..91.997 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_34_chunk.energy_kwh), PARTIAL avg(_hyper_1_34_chunk.power_kw), PARTIAL min(_hyper_1_34_chunk.power_kw), PARTIAL max(_hyper_1_34_chunk.power_kw)
-                    Buffers: shared hit=4341 read=27
-                    Worker 2:  actual time=91.997..91.997 rows=1 loops=1
-                      Buffers: shared hit=4341 read=27
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_34_chunk  (cost=0.00..5951.41 rows=158341 width=16) (actual time=0.012..51.393 rows=380019 loops=1)
-                          Output: _hyper_1_34_chunk.energy_kwh, _hyper_1_34_chunk.power_kw
-                          Buffers: shared hit=4341 read=27
-                          Worker 2:  actual time=0.012..51.393 rows=380019 loops=1
-                            Buffers: shared hit=4341 read=27
-              ->  Partial Aggregate  (cost=7923.98..7923.99 rows=1 width=64) (actual time=79.353..79.353 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_55_chunk.energy_kwh), PARTIAL avg(_hyper_1_55_chunk.power_kw), PARTIAL min(_hyper_1_55_chunk.power_kw), PARTIAL max(_hyper_1_55_chunk.power_kw)
-                    Buffers: shared hit=4342 read=18
-                    Worker 4:  actual time=79.353..79.353 rows=1 loops=1
-                      Buffers: shared hit=4342 read=18
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_55_chunk  (cost=0.00..5943.99 rows=158399 width=16) (actual time=0.013..44.962 rows=380157 loops=1)
-                          Output: _hyper_1_55_chunk.energy_kwh, _hyper_1_55_chunk.power_kw
-                          Buffers: shared hit=4342 read=18
-                          Worker 4:  actual time=0.013..44.962 rows=380157 loops=1
-                            Buffers: shared hit=4342 read=18
-              ->  Partial Aggregate  (cost=7923.66..7923.67 rows=1 width=64) (actual time=95.562..95.563 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_40_chunk.energy_kwh), PARTIAL avg(_hyper_1_40_chunk.power_kw), PARTIAL min(_hyper_1_40_chunk.power_kw), PARTIAL max(_hyper_1_40_chunk.power_kw)
-                    Buffers: shared hit=4342 read=18
-                    Worker 1:  actual time=95.562..95.563 rows=1 loops=1
-                      Buffers: shared hit=4342 read=18
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_40_chunk  (cost=0.00..5943.85 rows=158385 width=16) (actual time=0.006..54.657 rows=380123 loops=1)
-                          Output: _hyper_1_40_chunk.energy_kwh, _hyper_1_40_chunk.power_kw
-                          Buffers: shared hit=4342 read=18
-                          Worker 1:  actual time=0.006..54.657 rows=380123 loops=1
-                            Buffers: shared hit=4342 read=18
-              ->  Partial Aggregate  (cost=7921.40..7921.41 rows=1 width=64) (actual time=103.306..103.306 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_44_chunk.energy_kwh), PARTIAL avg(_hyper_1_44_chunk.power_kw), PARTIAL min(_hyper_1_44_chunk.power_kw), PARTIAL max(_hyper_1_44_chunk.power_kw)
-                    Buffers: shared hit=4340 read=18
-                    Worker 0:  actual time=103.306..103.306 rows=1 loops=1
-                      Buffers: shared hit=4340 read=18
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_44_chunk  (cost=0.00..5941.73 rows=158373 width=16) (actual time=0.014..58.863 rows=380096 loops=1)
-                          Output: _hyper_1_44_chunk.energy_kwh, _hyper_1_44_chunk.power_kw
-                          Buffers: shared hit=4340 read=18
-                          Worker 0:  actual time=0.014..58.863 rows=380096 loops=1
-                            Buffers: shared hit=4340 read=18
-              ->  Partial Aggregate  (cost=7916.49..7916.50 rows=1 width=64) (actual time=77.162..77.162 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_50_chunk.energy_kwh), PARTIAL avg(_hyper_1_50_chunk.power_kw), PARTIAL min(_hyper_1_50_chunk.power_kw), PARTIAL max(_hyper_1_50_chunk.power_kw)
-                    Buffers: shared hit=4343 read=9
-                    Worker 3:  actual time=77.162..77.162 rows=1 loops=1
-                      Buffers: shared hit=4343 read=9
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_50_chunk  (cost=0.00..5936.22 rows=158422 width=16) (actual time=0.010..42.844 rows=380212 loops=1)
-                          Output: _hyper_1_50_chunk.energy_kwh, _hyper_1_50_chunk.power_kw
-                          Buffers: shared hit=4343 read=9
-                          Worker 3:  actual time=0.010..42.844 rows=380212 loops=1
-                            Buffers: shared hit=4343 read=9
-              ->  Partial Aggregate  (cost=7915.89..7915.90 rows=1 width=64) (actual time=44.470..44.471 rows=1 loops=2)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_39_chunk.energy_kwh), PARTIAL avg(_hyper_1_39_chunk.power_kw), PARTIAL min(_hyper_1_39_chunk.power_kw), PARTIAL max(_hyper_1_39_chunk.power_kw)
-                    Buffers: shared hit=4341 read=11
-                    Worker 0:  actual time=26.165..26.165 rows=1 loops=1
-                      Buffers: shared hit=1241 read=5
-                    Worker 2:  actual time=62.776..62.776 rows=1 loops=1
-                      Buffers: shared hit=3100 read=6
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_39_chunk  (cost=0.00..5935.95 rows=158395 width=16) (actual time=0.008..24.678 rows=190074 loops=2)
-                          Output: _hyper_1_39_chunk.energy_kwh, _hyper_1_39_chunk.power_kw
-                          Buffers: shared hit=4341 read=11
-                          Worker 0:  actual time=0.007..14.689 rows=108706 loops=1
-                            Buffers: shared hit=1241 read=5
-                          Worker 2:  actual time=0.009..34.668 rows=271443 loops=1
-                            Buffers: shared hit=3100 read=6
-              ->  Partial Aggregate  (cost=7915.85..7915.86 rows=1 width=64) (actual time=33.735..33.735 rows=1 loops=3)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_36_chunk.energy_kwh), PARTIAL avg(_hyper_1_36_chunk.power_kw), PARTIAL min(_hyper_1_36_chunk.power_kw), PARTIAL max(_hyper_1_36_chunk.power_kw)
-                    Buffers: shared hit=4342 read=10
-                    Worker 1:  actual time=13.436..13.436 rows=1 loops=1
-                      Buffers: shared hit=468 read=3
-                    Worker 2:  actual time=13.399..13.399 rows=1 loops=1
-                      Buffers: shared hit=710 read=4
-                    Worker 4:  actual time=74.369..74.369 rows=1 loops=1
-                      Buffers: shared hit=3164 read=3
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_36_chunk  (cost=0.00..5935.93 rows=158393 width=16) (actual time=0.009..19.546 rows=126715 loops=3)
-                          Output: _hyper_1_36_chunk.energy_kwh, _hyper_1_36_chunk.power_kw
-                          Buffers: shared hit=4342 read=10
-                          Worker 1:  actual time=0.011..7.896 rows=40977 loops=1
-                            Buffers: shared hit=468 read=3
-                          Worker 2:  actual time=0.005..7.466 rows=62174 loops=1
-                            Buffers: shared hit=710 read=4
-                          Worker 4:  actual time=0.012..43.274 rows=276993 loops=1
-                            Buffers: shared hit=3164 read=3
-              ->  Partial Aggregate  (cost=7915.66..7915.67 rows=1 width=64) (actual time=15.806..15.807 rows=1 loops=6)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_41_chunk.energy_kwh), PARTIAL avg(_hyper_1_41_chunk.power_kw), PARTIAL min(_hyper_1_41_chunk.power_kw), PARTIAL max(_hyper_1_41_chunk.power_kw)
-                    Buffers: shared hit=4342 read=10
-                    Worker 0:  actual time=13.913..13.913 rows=1 loops=1
-                      Buffers: shared hit=648 read=1
-                    Worker 1:  actual time=0.540..0.540 rows=1 loops=1
-                      Buffers: shared hit=21 read=1
-                    Worker 2:  actual time=0.509..0.510 rows=1 loops=1
-                      Buffers: shared hit=37 read=1
-                    Worker 3:  actual time=65.384..65.384 rows=1 loops=1
-                      Buffers: shared hit=2963 read=1
-                    Worker 4:  actual time=0.487..0.487 rows=1 loops=1
-                      Buffers: shared hit=36 read=5
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_41_chunk  (cost=0.00..5935.85 rows=158385 width=16) (actual time=0.007..8.956 rows=63354 loops=6)
-                          Output: _hyper_1_41_chunk.energy_kwh, _hyper_1_41_chunk.power_kw
-                          Buffers: shared hit=4342 read=10
-                          Worker 0:  actual time=0.008..7.809 rows=56741 loops=1
-                            Buffers: shared hit=648 read=1
-                          Worker 1:  actual time=0.005..0.323 rows=1844 loops=1
-                            Buffers: shared hit=21 read=1
-                          Worker 2:  actual time=0.005..0.298 rows=3178 loops=1
-                            Buffers: shared hit=37 read=1
-                          Worker 3:  actual time=0.010..36.943 rows=259406 loops=1
-                            Buffers: shared hit=2963 read=1
-                          Worker 4:  actual time=0.006..0.278 rows=3153 loops=1
-                            Buffers: shared hit=36 read=5
-              ->  Partial Aggregate  (cost=7908.41..7908.42 rows=1 width=64) (actual time=43.407..43.408 rows=1 loops=2)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_47_chunk.energy_kwh), PARTIAL avg(_hyper_1_47_chunk.power_kw), PARTIAL min(_hyper_1_47_chunk.power_kw), PARTIAL max(_hyper_1_47_chunk.power_kw)
-                    Buffers: shared hit=4342 read=2
-                    Worker 1:  actual time=41.857..41.858 rows=1 loops=1
-                      Buffers: shared hit=1872 read=1
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_47_chunk  (cost=0.00..5928.18 rows=158418 width=16) (actual time=0.009..25.339 rows=190102 loops=2)
-                          Output: _hyper_1_47_chunk.energy_kwh, _hyper_1_47_chunk.power_kw
-                          Buffers: shared hit=4342 read=2
-                          Worker 1:  actual time=0.012..24.739 rows=163881 loops=1
-                            Buffers: shared hit=1872 read=1
-              ->  Partial Aggregate  (cost=7907.32..7907.33 rows=1 width=64) (actual time=92.537..92.538 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_32_chunk.energy_kwh), PARTIAL avg(_hyper_1_32_chunk.power_kw), PARTIAL min(_hyper_1_32_chunk.power_kw), PARTIAL max(_hyper_1_32_chunk.power_kw)
-                    Buffers: shared hit=4341 read=3
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_32_chunk  (cost=0.00..5927.70 rows=158370 width=16) (actual time=0.010..52.924 rows=380087 loops=1)
-                          Output: _hyper_1_32_chunk.energy_kwh, _hyper_1_32_chunk.power_kw
-                          Buffers: shared hit=4341 read=3
-              ->  Partial Aggregate  (cost=7906.99..7907.00 rows=1 width=64) (actual time=103.376..103.377 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_51_chunk.energy_kwh), PARTIAL avg(_hyper_1_51_chunk.power_kw), PARTIAL min(_hyper_1_51_chunk.power_kw), PARTIAL max(_hyper_1_51_chunk.power_kw)
-                    Buffers: shared hit=4239 read=105
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_51_chunk  (cost=0.00..5927.55 rows=158355 width=16) (actual time=0.310..63.950 rows=380053 loops=1)
-                          Output: _hyper_1_51_chunk.energy_kwh, _hyper_1_51_chunk.power_kw
-                          Buffers: shared hit=4239 read=105
-              ->  Partial Aggregate  (cost=7905.55..7905.56 rows=1 width=64) (actual time=110.809..110.810 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_37_chunk.energy_kwh), PARTIAL avg(_hyper_1_37_chunk.power_kw), PARTIAL min(_hyper_1_37_chunk.power_kw), PARTIAL max(_hyper_1_37_chunk.power_kw)
-                    Buffers: shared hit=4238 read=104
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_37_chunk  (cost=0.00..5925.80 rows=158380 width=16) (actual time=0.014..71.572 rows=380113 loops=1)
-                          Output: _hyper_1_37_chunk.energy_kwh, _hyper_1_37_chunk.power_kw
-                          Buffers: shared hit=4238 read=104
-              ->  Partial Aggregate  (cost=7266.41..7266.42 rows=1 width=64) (actual time=81.941..81.942 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_58_chunk.energy_kwh), PARTIAL avg(_hyper_1_58_chunk.power_kw), PARTIAL min(_hyper_1_58_chunk.power_kw), PARTIAL max(_hyper_1_58_chunk.power_kw)
-                    Buffers: shared hit=3979 read=21
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_58_chunk  (cost=0.00..5451.74 rows=145174 width=16) (actual time=0.005..46.332 rows=348417 loops=1)
-                          Output: _hyper_1_58_chunk.energy_kwh, _hyper_1_58_chunk.power_kw
-                          Buffers: shared hit=3979 read=21
-              ->  Partial Aggregate  (cost=787.78..787.79 rows=1 width=64) (actual time=6.812..6.813 rows=1 loops=1)
-                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_30_chunk.energy_kwh), PARTIAL avg(_hyper_1_30_chunk.power_kw), PARTIAL min(_hyper_1_30_chunk.power_kw), PARTIAL max(_hyper_1_30_chunk.power_kw)
-                    Buffers: shared hit=363 read=5
-                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_30_chunk  (cost=0.00..554.57 rows=18657 width=16) (actual time=0.017..3.892 rows=31717 loops=1)
-                          Output: _hyper_1_30_chunk.energy_kwh, _hyper_1_30_chunk.power_kw
-                          Buffers: shared hit=363 read=5
+        Buffers: shared hit=59 read=122023 written=3
+        ->  Parallel Append  (cost=7934.47..221989.73 rows=1 width=64) (actual time=985.472..6124.504 rows=6 loops=6)
+              Buffers: shared hit=59 read=122023 written=3
+              Worker 0:  actual time=1075.720..6119.310 rows=7 loops=1
+                Buffers: shared hit=1 read=20324
+              Worker 1:  actual time=1021.476..6125.180 rows=6 loops=1
+                Buffers: shared read=20840 written=1
+              Worker 2:  actual time=1150.646..6119.489 rows=5 loops=1
+                Buffers: shared hit=13 read=20379 written=1
+              Worker 3:  actual time=1164.852..6126.296 rows=6 loops=1
+                Buffers: shared hit=10 read=20484
+              Worker 4:  actual time=1397.957..6120.668 rows=8 loops=1
+                Buffers: shared read=20644
+              ->  Partial Aggregate  (cost=7966.68..7966.69 rows=1 width=64) (actual time=1164.850..1164.919 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_383_chunk.energy_kwh), PARTIAL avg(_hyper_1_383_chunk.power_kw), PARTIAL min(_hyper_1_383_chunk.power_kw), PARTIAL max(_hyper_1_383_chunk.power_kw)
+                    Buffers: shared hit=10 read=4394
+                    Worker 3:  actual time=1164.850..1164.919 rows=1 loops=1
+                      Buffers: shared hit=10 read=4394
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_383_chunk  (cost=0.00..5987.41 rows=158341 width=16) (actual time=0.477..1127.071 rows=380019 loops=1)
+                          Output: _hyper_1_383_chunk.energy_kwh, _hyper_1_383_chunk.power_kw
+                          Buffers: shared hit=10 read=4394
+                          Worker 3:  actual time=0.477..1127.071 rows=380019 loops=1
+                            Buffers: shared hit=10 read=4394
+              ->  Partial Aggregate  (cost=7959.89..7959.90 rows=1 width=64) (actual time=1021.475..1021.518 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_388_chunk.energy_kwh), PARTIAL avg(_hyper_1_388_chunk.power_kw), PARTIAL min(_hyper_1_388_chunk.power_kw), PARTIAL max(_hyper_1_388_chunk.power_kw)
+                    Buffers: shared read=4396 written=1
+                    Worker 1:  actual time=1021.475..1021.518 rows=1 loops=1
+                      Buffers: shared read=4396 written=1
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_388_chunk  (cost=0.00..5979.95 rows=158395 width=16) (actual time=0.175..984.225 rows=380149 loops=1)
+                          Output: _hyper_1_388_chunk.energy_kwh, _hyper_1_388_chunk.power_kw
+                          Buffers: shared read=4396 written=1
+                          Worker 1:  actual time=0.175..984.225 rows=380149 loops=1
+                            Buffers: shared read=4396 written=1
+              ->  Partial Aggregate  (cost=7955.91..7955.92 rows=1 width=64) (actual time=1150.643..1150.842 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_382_chunk.energy_kwh), PARTIAL avg(_hyper_1_382_chunk.power_kw), PARTIAL min(_hyper_1_382_chunk.power_kw), PARTIAL max(_hyper_1_382_chunk.power_kw)
+                    Buffers: shared hit=13 read=4379 written=1
+                    Worker 2:  actual time=1150.643..1150.842 rows=1 loops=1
+                      Buffers: shared hit=13 read=4379 written=1
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_382_chunk  (cost=0.00..5975.96 rows=158396 width=16) (actual time=0.744..1112.871 rows=380151 loops=1)
+                          Output: _hyper_1_382_chunk.energy_kwh, _hyper_1_382_chunk.power_kw
+                          Buffers: shared hit=13 read=4379 written=1
+                          Worker 2:  actual time=0.744..1112.871 rows=380151 loops=1
+                            Buffers: shared hit=13 read=4379 written=1
+              ->  Partial Aggregate  (cost=7939.64..7939.65 rows=1 width=64) (actual time=1397.955..1398.046 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_402_chunk.energy_kwh), PARTIAL avg(_hyper_1_402_chunk.power_kw), PARTIAL min(_hyper_1_402_chunk.power_kw), PARTIAL max(_hyper_1_402_chunk.power_kw)
+                    Buffers: shared read=4376
+                    Worker 4:  actual time=1397.955..1398.046 rows=1 loops=1
+                      Buffers: shared read=4376
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_402_chunk  (cost=0.00..5959.84 rows=158384 width=16) (actual time=0.890..1361.018 rows=380121 loops=1)
+                          Output: _hyper_1_402_chunk.energy_kwh, _hyper_1_402_chunk.power_kw
+                          Buffers: shared read=4376
+                          Worker 4:  actual time=0.890..1361.018 rows=380121 loops=1
+                            Buffers: shared read=4376
+              ->  Partial Aggregate  (cost=7934.47..7934.48 rows=1 width=64) (actual time=1075.718..1075.760 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_398_chunk.energy_kwh), PARTIAL avg(_hyper_1_398_chunk.power_kw), PARTIAL min(_hyper_1_398_chunk.power_kw), PARTIAL max(_hyper_1_398_chunk.power_kw)
+                    Buffers: shared hit=1 read=4369
+                    Worker 0:  actual time=1075.718..1075.760 rows=1 loops=1
+                      Buffers: shared hit=1 read=4369
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_398_chunk  (cost=0.00..5954.21 rows=158421 width=16) (actual time=0.863..1038.031 rows=380211 loops=1)
+                          Output: _hyper_1_398_chunk.energy_kwh, _hyper_1_398_chunk.power_kw
+                          Buffers: shared hit=1 read=4369
+                          Worker 0:  actual time=0.863..1038.031 rows=380211 loops=1
+                            Buffers: shared hit=1 read=4369
+              ->  Partial Aggregate  (cost=7932.40..7932.41 rows=1 width=64) (actual time=1354.238..1354.265 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_392_chunk.energy_kwh), PARTIAL avg(_hyper_1_392_chunk.power_kw), PARTIAL min(_hyper_1_392_chunk.power_kw), PARTIAL max(_hyper_1_392_chunk.power_kw)
+                    Buffers: shared read=4368
+                    Worker 1:  actual time=1354.238..1354.265 rows=1 loops=1
+                      Buffers: shared read=4368
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_392_chunk  (cost=0.00..5952.18 rows=158418 width=16) (actual time=1.021..1315.154 rows=380203 loops=1)
+                          Output: _hyper_1_392_chunk.energy_kwh, _hyper_1_392_chunk.power_kw
+                          Buffers: shared read=4368
+                          Worker 1:  actual time=1.021..1315.154 rows=380203 loops=1
+                            Buffers: shared read=4368
+              ->  Partial Aggregate  (cost=7931.64..7931.65 rows=1 width=64) (actual time=1275.640..1275.671 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_387_chunk.energy_kwh), PARTIAL avg(_hyper_1_387_chunk.power_kw), PARTIAL min(_hyper_1_387_chunk.power_kw), PARTIAL max(_hyper_1_387_chunk.power_kw)
+                    Buffers: shared read=4368
+                    Worker 0:  actual time=1275.640..1275.671 rows=1 loops=1
+                      Buffers: shared read=4368
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_387_chunk  (cost=0.00..5951.84 rows=158384 width=16) (actual time=0.634..1236.152 rows=380122 loops=1)
+                          Output: _hyper_1_387_chunk.energy_kwh, _hyper_1_387_chunk.power_kw
+                          Buffers: shared read=4368
+                          Worker 0:  actual time=0.634..1236.152 rows=380122 loops=1
+                            Buffers: shared read=4368
+              ->  Partial Aggregate  (cost=7927.32..7927.34 rows=1 width=64) (actual time=1283.545..1283.579 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_397_chunk.energy_kwh), PARTIAL avg(_hyper_1_397_chunk.power_kw), PARTIAL min(_hyper_1_397_chunk.power_kw), PARTIAL max(_hyper_1_397_chunk.power_kw)
+                    Buffers: shared read=4364
+                    Worker 2:  actual time=1283.545..1283.579 rows=1 loops=1
+                      Buffers: shared read=4364
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_397_chunk  (cost=0.00..5947.70 rows=158370 width=16) (actual time=0.532..1243.571 rows=380088 loops=1)
+                          Output: _hyper_1_397_chunk.energy_kwh, _hyper_1_397_chunk.power_kw
+                          Buffers: shared read=4364
+                          Worker 2:  actual time=0.532..1243.571 rows=380088 loops=1
+                            Buffers: shared read=4364
+              ->  Partial Aggregate  (cost=7924.68..7924.69 rows=1 width=64) (actual time=1319.020..1319.053 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_384_chunk.energy_kwh), PARTIAL avg(_hyper_1_384_chunk.power_kw), PARTIAL min(_hyper_1_384_chunk.power_kw), PARTIAL max(_hyper_1_384_chunk.power_kw)
+                    Buffers: shared read=4361
+                    Worker 3:  actual time=1319.020..1319.053 rows=1 loops=1
+                      Buffers: shared read=4361
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_384_chunk  (cost=0.00..5944.86 rows=158386 width=16) (actual time=1.342..1279.230 rows=380126 loops=1)
+                          Output: _hyper_1_384_chunk.energy_kwh, _hyper_1_384_chunk.power_kw
+                          Buffers: shared read=4361
+                          Worker 3:  actual time=1.342..1279.230 rows=380126 loops=1
+                            Buffers: shared read=4361
+              ->  Partial Aggregate  (cost=7924.49..7924.50 rows=1 width=64) (actual time=1166.951..1166.985 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_399_chunk.energy_kwh), PARTIAL avg(_hyper_1_399_chunk.power_kw), PARTIAL min(_hyper_1_399_chunk.power_kw), PARTIAL max(_hyper_1_399_chunk.power_kw)
+                    Buffers: shared read=4360
+                    Worker 4:  actual time=1166.951..1166.985 rows=1 loops=1
+                      Buffers: shared read=4360
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_399_chunk  (cost=0.00..5944.22 rows=158422 width=16) (actual time=0.399..1128.152 rows=380212 loops=1)
+                          Output: _hyper_1_399_chunk.energy_kwh, _hyper_1_399_chunk.power_kw
+                          Buffers: shared read=4360
+                          Worker 4:  actual time=0.399..1128.152 rows=380212 loops=1
+                            Buffers: shared read=4360
+              ->  Partial Aggregate  (cost=7923.66..7923.67 rows=1 width=64) (actual time=931.582..931.615 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_389_chunk.energy_kwh), PARTIAL avg(_hyper_1_389_chunk.power_kw), PARTIAL min(_hyper_1_389_chunk.power_kw), PARTIAL max(_hyper_1_389_chunk.power_kw)
+                    Buffers: shared read=4360
+                    Worker 0:  actual time=931.582..931.615 rows=1 loops=1
+                      Buffers: shared read=4360
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_389_chunk  (cost=0.00..5943.85 rows=158385 width=16) (actual time=0.141..890.951 rows=380123 loops=1)
+                          Output: _hyper_1_389_chunk.energy_kwh, _hyper_1_389_chunk.power_kw
+                          Buffers: shared read=4360
+                          Worker 0:  actual time=0.141..890.951 rows=380123 loops=1
+                            Buffers: shared read=4360
+              ->  Partial Aggregate  (cost=7919.91..7919.92 rows=1 width=64) (actual time=841.510..841.525 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_391_chunk.energy_kwh), PARTIAL avg(_hyper_1_391_chunk.power_kw), PARTIAL min(_hyper_1_391_chunk.power_kw), PARTIAL max(_hyper_1_391_chunk.power_kw)
+                    Buffers: shared read=4356
+                    Worker 1:  actual time=841.510..841.525 rows=1 loops=1
+                      Buffers: shared read=4356
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_391_chunk  (cost=0.00..5939.96 rows=158396 width=16) (actual time=0.113..802.305 rows=380151 loops=1)
+                          Output: _hyper_1_391_chunk.energy_kwh, _hyper_1_391_chunk.power_kw
+                          Buffers: shared read=4356
+                          Worker 1:  actual time=0.113..802.305 rows=380151 loops=1
+                            Buffers: shared read=4356
+              ->  Partial Aggregate  (cost=7918.99..7919.00 rows=1 width=64) (actual time=910.109..910.149 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_400_chunk.energy_kwh), PARTIAL avg(_hyper_1_400_chunk.power_kw), PARTIAL min(_hyper_1_400_chunk.power_kw), PARTIAL max(_hyper_1_400_chunk.power_kw)
+                    Buffers: shared read=4356
+                    Worker 2:  actual time=910.109..910.149 rows=1 loops=1
+                      Buffers: shared read=4356
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_400_chunk  (cost=0.00..5939.55 rows=158355 width=16) (actual time=1.225..871.307 rows=380053 loops=1)
+                          Output: _hyper_1_400_chunk.energy_kwh, _hyper_1_400_chunk.power_kw
+                          Buffers: shared read=4356
+                          Worker 2:  actual time=1.225..871.307 rows=380053 loops=1
+                            Buffers: shared read=4356
+              ->  Partial Aggregate  (cost=7916.41..7916.42 rows=1 width=64) (actual time=868.954..868.955 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_396_chunk.energy_kwh), PARTIAL avg(_hyper_1_396_chunk.power_kw), PARTIAL min(_hyper_1_396_chunk.power_kw), PARTIAL max(_hyper_1_396_chunk.power_kw)
+                    Buffers: shared read=4352
+                    Worker 3:  actual time=868.954..868.955 rows=1 loops=1
+                      Buffers: shared read=4352
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_396_chunk  (cost=0.00..5936.18 rows=158418 width=16) (actual time=0.478..829.814 rows=380204 loops=1)
+                          Output: _hyper_1_396_chunk.energy_kwh, _hyper_1_396_chunk.power_kw
+                          Buffers: shared read=4352
+                          Worker 3:  actual time=0.478..829.814 rows=380204 loops=1
+                            Buffers: shared read=4352
+              ->  Partial Aggregate  (cost=7913.40..7913.41 rows=1 width=64) (actual time=905.799..905.800 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_393_chunk.energy_kwh), PARTIAL avg(_hyper_1_393_chunk.power_kw), PARTIAL min(_hyper_1_393_chunk.power_kw), PARTIAL max(_hyper_1_393_chunk.power_kw)
+                    Buffers: shared read=4350
+                    Worker 4:  actual time=905.799..905.800 rows=1 loops=1
+                      Buffers: shared read=4350
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_393_chunk  (cost=0.00..5933.73 rows=158373 width=16) (actual time=0.648..867.516 rows=380096 loops=1)
+                          Output: _hyper_1_393_chunk.energy_kwh, _hyper_1_393_chunk.power_kw
+                          Buffers: shared read=4350
+                          Worker 4:  actual time=0.648..867.516 rows=380096 loops=1
+                            Buffers: shared read=4350
+              ->  Partial Aggregate  (cost=7911.88..7911.89 rows=1 width=64) (actual time=1538.390..1538.400 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_406_chunk.energy_kwh), PARTIAL avg(_hyper_1_406_chunk.power_kw), PARTIAL min(_hyper_1_406_chunk.power_kw), PARTIAL max(_hyper_1_406_chunk.power_kw)
+                    Buffers: shared read=4348
+                    Worker 1:  actual time=1538.390..1538.400 rows=1 loops=1
+                      Buffers: shared read=4348
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_406_chunk  (cost=0.00..5931.95 rows=158395 width=16) (actual time=0.492..1499.153 rows=380147 loops=1)
+                          Output: _hyper_1_406_chunk.energy_kwh, _hyper_1_406_chunk.power_kw
+                          Buffers: shared read=4348
+                          Worker 1:  actual time=0.492..1499.153 rows=380147 loops=1
+                            Buffers: shared read=4348
+              ->  Partial Aggregate  (cost=7909.62..7909.63 rows=1 width=64) (actual time=1496.389..1496.422 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_405_chunk.energy_kwh), PARTIAL avg(_hyper_1_405_chunk.power_kw), PARTIAL min(_hyper_1_405_chunk.power_kw), PARTIAL max(_hyper_1_405_chunk.power_kw)
+                    Buffers: shared read=4346
+                    Worker 0:  actual time=1496.389..1496.422 rows=1 loops=1
+                      Buffers: shared read=4346
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_405_chunk  (cost=0.00..5929.83 rows=158383 width=16) (actual time=0.428..1457.959 rows=380119 loops=1)
+                          Output: _hyper_1_405_chunk.energy_kwh, _hyper_1_405_chunk.power_kw
+                          Buffers: shared read=4346
+                          Worker 0:  actual time=0.428..1457.959 rows=380119 loops=1
+                            Buffers: shared read=4346
+              ->  Partial Aggregate  (cost=7907.98..7907.99 rows=1 width=64) (actual time=1424.589..1424.590 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_404_chunk.energy_kwh), PARTIAL avg(_hyper_1_404_chunk.power_kw), PARTIAL min(_hyper_1_404_chunk.power_kw), PARTIAL max(_hyper_1_404_chunk.power_kw)
+                    Buffers: shared read=4344
+                    Worker 2:  actual time=1424.589..1424.590 rows=1 loops=1
+                      Buffers: shared read=4344
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_404_chunk  (cost=0.00..5927.99 rows=158399 width=16) (actual time=0.529..1385.530 rows=380157 loops=1)
+                          Output: _hyper_1_404_chunk.energy_kwh, _hyper_1_404_chunk.power_kw
+                          Buffers: shared read=4344
+                          Worker 2:  actual time=0.529..1385.530 rows=380157 loops=1
+                            Buffers: shared read=4344
+              ->  Partial Aggregate  (cost=7907.96..7907.97 rows=1 width=64) (actual time=1389.037..1389.038 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_395_chunk.energy_kwh), PARTIAL avg(_hyper_1_395_chunk.power_kw), PARTIAL min(_hyper_1_395_chunk.power_kw), PARTIAL max(_hyper_1_395_chunk.power_kw)
+                    Buffers: shared read=4344
+                    Worker 3:  actual time=1389.037..1389.038 rows=1 loops=1
+                      Buffers: shared read=4344
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_395_chunk  (cost=0.00..5927.98 rows=158398 width=16) (actual time=0.150..1351.034 rows=380156 loops=1)
+                          Output: _hyper_1_395_chunk.energy_kwh, _hyper_1_395_chunk.power_kw
+                          Buffers: shared read=4344
+                          Worker 3:  actual time=0.150..1351.034 rows=380156 loops=1
+                            Buffers: shared read=4344
+              ->  Partial Aggregate  (cost=7907.66..7907.67 rows=1 width=64) (actual time=1347.874..1347.908 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_390_chunk.energy_kwh), PARTIAL avg(_hyper_1_390_chunk.power_kw), PARTIAL min(_hyper_1_390_chunk.power_kw), PARTIAL max(_hyper_1_390_chunk.power_kw)
+                    Buffers: shared read=4344
+                    Worker 4:  actual time=1347.874..1347.908 rows=1 loops=1
+                      Buffers: shared read=4344
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_390_chunk  (cost=0.00..5927.85 rows=158385 width=16) (actual time=0.498..1310.143 rows=380123 loops=1)
+                          Output: _hyper_1_390_chunk.energy_kwh, _hyper_1_390_chunk.power_kw
+                          Buffers: shared read=4344
+                          Worker 4:  actual time=0.498..1310.143 rows=380123 loops=1
+                            Buffers: shared read=4344
+              ->  Partial Aggregate  (cost=7907.44..7907.45 rows=1 width=64) (actual time=933.496..933.512 rows=1 loops=2)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_394_chunk.energy_kwh), PARTIAL avg(_hyper_1_394_chunk.power_kw), PARTIAL min(_hyper_1_394_chunk.power_kw), PARTIAL max(_hyper_1_394_chunk.power_kw)
+                    Buffers: shared read=4344
+                    Worker 3:  actual time=1053.185..1053.216 rows=1 loops=1
+                      Buffers: shared read=2352
+                    Worker 4:  actual time=813.807..813.808 rows=1 loops=1
+                      Buffers: shared read=1992
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_394_chunk  (cost=0.00..5927.75 rows=158375 width=16) (actual time=0.204..912.380 rows=190050 loops=2)
+                          Output: _hyper_1_394_chunk.energy_kwh, _hyper_1_394_chunk.power_kw
+                          Buffers: shared read=4344
+                          Worker 3:  actual time=0.273..1030.348 rows=205792 loops=1
+                            Buffers: shared read=2352
+                          Worker 4:  actual time=0.135..794.411 rows=174308 loops=1
+                            Buffers: shared read=1992
+              ->  Partial Aggregate  (cost=7907.33..7907.34 rows=1 width=64) (actual time=594.346..594.346 rows=1 loops=3)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_380_chunk.energy_kwh), PARTIAL avg(_hyper_1_380_chunk.power_kw), PARTIAL min(_hyper_1_380_chunk.power_kw), PARTIAL max(_hyper_1_380_chunk.power_kw)
+                    Buffers: shared read=4344
+                    Worker 0:  actual time=136.219..136.219 rows=1 loops=1
+                      Buffers: shared read=350
+                    Worker 1:  actual time=1342.309..1342.310 rows=1 loops=1
+                      Buffers: shared read=3282
+                    Worker 4:  actual time=304.509..304.510 rows=1 loops=1
+                      Buffers: shared read=712
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_380_chunk  (cost=0.00..5927.70 rows=158370 width=16) (actual time=1.300..580.321 rows=126696 loops=3)
+                          Output: _hyper_1_380_chunk.energy_kwh, _hyper_1_380_chunk.power_kw
+                          Buffers: shared read=4344
+                          Worker 0:  actual time=0.925..132.748 rows=30656 loops=1
+                            Buffers: shared read=350
+                          Worker 1:  actual time=0.544..1310.413 rows=287279 loops=1
+                            Buffers: shared read=3282
+                          Worker 4:  actual time=2.430..297.802 rows=62154 loops=1
+                            Buffers: shared read=712
+              ->  Partial Aggregate  (cost=7906.23..7906.24 rows=1 width=64) (actual time=321.536..321.537 rows=1 loops=6)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_403_chunk.energy_kwh), PARTIAL avg(_hyper_1_403_chunk.power_kw), PARTIAL min(_hyper_1_403_chunk.power_kw), PARTIAL max(_hyper_1_403_chunk.power_kw)
+                    Buffers: shared read=4342
+                    Worker 0:  actual time=27.369..27.369 rows=1 loops=1
+                      Buffers: shared read=85
+                    Worker 1:  actual time=25.854..25.854 rows=1 loops=1
+                      Buffers: shared read=90
+                    Worker 2:  actual time=1348.947..1348.948 rows=1 loops=1
+                      Buffers: shared read=2936
+                    Worker 3:  actual time=329.527..329.528 rows=1 loops=1
+                      Buffers: shared read=681
+                    Worker 4:  actual time=27.233..27.234 rows=1 loops=1
+                      Buffers: shared read=66
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_403_chunk  (cost=0.00..5926.10 rows=158410 width=16) (actual time=1.444..314.348 rows=63364 loops=6)
+                          Output: _hyper_1_403_chunk.energy_kwh, _hyper_1_403_chunk.power_kw
+                          Buffers: shared read=4342
+                          Worker 0:  actual time=0.473..26.522 rows=7435 loops=1
+                            Buffers: shared read=85
+                          Worker 1:  actual time=0.211..24.767 rows=7878 loops=1
+                            Buffers: shared read=90
+                          Worker 2:  actual time=0.381..1320.814 rows=257044 loops=1
+                            Buffers: shared read=2936
+                          Worker 3:  actual time=5.148..322.483 rows=59629 loops=1
+                            Buffers: shared read=681
+                          Worker 4:  actual time=0.817..26.278 rows=5784 loops=1
+                            Buffers: shared read=66
+              ->  Partial Aggregate  (cost=7905.93..7905.94 rows=1 width=64) (actual time=1075.058..1075.075 rows=1 loops=2)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_401_chunk.energy_kwh), PARTIAL avg(_hyper_1_401_chunk.power_kw), PARTIAL min(_hyper_1_401_chunk.power_kw), PARTIAL max(_hyper_1_401_chunk.power_kw)
+                    Buffers: shared read=4342
+                    Worker 0:  actual time=1174.964..1174.997 rows=1 loops=1
+                      Buffers: shared read=2446
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_401_chunk  (cost=0.00..5925.97 rows=158397 width=16) (actual time=0.384..1053.375 rows=190076 loops=2)
+                          Output: _hyper_1_401_chunk.energy_kwh, _hyper_1_401_chunk.power_kw
+                          Buffers: shared read=4342
+                          Worker 0:  actual time=0.573..1150.491 rows=214125 loops=1
+                            Buffers: shared read=2446
+              ->  Partial Aggregate  (cost=7905.85..7905.86 rows=1 width=64) (actual time=783.623..783.655 rows=1 loops=2)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_385_chunk.energy_kwh), PARTIAL avg(_hyper_1_385_chunk.power_kw), PARTIAL min(_hyper_1_385_chunk.power_kw), PARTIAL max(_hyper_1_385_chunk.power_kw)
+                    Buffers: shared read=4342
+                    Worker 4:  actual time=154.056..154.120 rows=1 loops=1
+                      Buffers: shared read=444
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_385_chunk  (cost=0.00..5925.93 rows=158393 width=16) (actual time=0.701..764.293 rows=190072 loops=2)
+                          Output: _hyper_1_385_chunk.energy_kwh, _hyper_1_385_chunk.power_kw
+                          Buffers: shared read=4342
+                          Worker 4:  actual time=0.956..150.122 rows=38880 loops=1
+                            Buffers: shared read=444
+              ->  Partial Aggregate  (cost=7905.55..7905.56 rows=1 width=64) (actual time=951.751..951.753 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_386_chunk.energy_kwh), PARTIAL avg(_hyper_1_386_chunk.power_kw), PARTIAL min(_hyper_1_386_chunk.power_kw), PARTIAL max(_hyper_1_386_chunk.power_kw)
+                    Buffers: shared read=4342
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_386_chunk  (cost=0.00..5925.80 rows=158380 width=16) (actual time=0.123..911.966 rows=380113 loops=1)
+                          Output: _hyper_1_386_chunk.energy_kwh, _hyper_1_386_chunk.power_kw
+                          Buffers: shared read=4342
+              ->  Partial Aggregate  (cost=7904.32..7904.33 rows=1 width=64) (actual time=1226.198..1226.199 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_381_chunk.energy_kwh), PARTIAL avg(_hyper_1_381_chunk.power_kw), PARTIAL min(_hyper_1_381_chunk.power_kw), PARTIAL max(_hyper_1_381_chunk.power_kw)
+                    Buffers: shared read=4341
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_381_chunk  (cost=0.00..5924.70 rows=158370 width=16) (actual time=0.438..1185.849 rows=380087 loops=1)
+                          Output: _hyper_1_381_chunk.energy_kwh, _hyper_1_381_chunk.power_kw
+                          Buffers: shared read=4341
+              ->  Partial Aggregate  (cost=7266.41..7266.42 rows=1 width=64) (actual time=1295.123..1295.241 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_407_chunk.energy_kwh), PARTIAL avg(_hyper_1_407_chunk.power_kw), PARTIAL min(_hyper_1_407_chunk.power_kw), PARTIAL max(_hyper_1_407_chunk.power_kw)
+                    Buffers: shared hit=14 read=3986 written=1
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_407_chunk  (cost=0.00..5451.74 rows=145174 width=16) (actual time=1.350..1258.998 rows=348417 loops=1)
+                          Output: _hyper_1_407_chunk.energy_kwh, _hyper_1_407_chunk.power_kw
+                          Buffers: shared hit=14 read=3986 written=1
+              ->  Partial Aggregate  (cost=845.78..845.79 rows=1 width=64) (actual time=102.179..102.284 rows=1 loops=1)
+                    Output: PARTIAL count(*), PARTIAL sum(_hyper_1_379_chunk.energy_kwh), PARTIAL avg(_hyper_1_379_chunk.power_kw), PARTIAL min(_hyper_1_379_chunk.power_kw), PARTIAL max(_hyper_1_379_chunk.power_kw)
+                    Buffers: shared hit=21 read=405
+                    ->  Parallel Seq Scan on _timescaledb_internal._hyper_1_379_chunk  (cost=0.00..612.57 rows=18657 width=16) (actual time=0.694..99.206 rows=31717 loops=1)
+                          Output: _hyper_1_379_chunk.energy_kwh, _hyper_1_379_chunk.power_kw
+                          Buffers: shared hit=21 read=405
 Planning:
-  Buffers: shared hit=2201 read=56
-Planning Time: 23.969 ms
-Execution Time: 468.566 ms
+  Buffers: shared hit=2126 read=145
+Planning Time: 80.859 ms
+Execution Time: 6197.576 ms

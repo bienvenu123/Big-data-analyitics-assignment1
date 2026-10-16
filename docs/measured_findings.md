@@ -22,7 +22,7 @@ The rule compares each reading with that meter's median at the same CAT hour and
 
 ## Forecast
 
-The random forest (`n_estimators=300`, `min_samples_leaf=3`, `max_features=0.9`, seed 42) had the lowest validation MAE (4.676 kWh; validation RMSE 6.101 kWh). Training used 1,680 rows after excluding 1,680 of 3,360 training rows lacking the selected 168-hour lookback. Validation and test each contained 1,680 rows. The final test MAE/RMSE were 5.134/7.141 kWh, versus 42.708/79.403 kWh for the previous-day baseline. Missing hourly predictors were imputed from training-only medians; absent target hours remain absent. See `results/regional_peak_errors.csv` for each region's peak-hour errors.
+The random forest (`n_estimators=300`, `min_samples_leaf=3`, `max_features=0.9`, seed 42) had the lowest validation MAE (4.679 kWh; validation RMSE 6.109 kWh) in the 15 October run. Training used 1,680 rows after excluding 1,680 of 3,360 training rows lacking the selected 168-hour lookback. Validation and test each contained 1,680 rows. The latest saved test MAE/RMSE are 5.133/7.147 kWh, versus 42.708/79.403 kWh for the previous-day baseline. Missing hourly predictors were imputed from training-only medians; absent target hours remain absent. See `results/regional_peak_errors.csv` for each region's peak-hour errors.
 
 ## Limitations
 

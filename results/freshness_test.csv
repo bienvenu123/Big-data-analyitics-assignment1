@@ -1,9 +1,9 @@
 stage,bucket,bucket_start_CAT,raw_energy_kwh,raw_rows,aggregate_energy_kwh,aggregate_rows
-after_initial_older_refresh_real_time_off,older,2026-09-30T10:00:00+02:00,1.0,1,1.0,1
-after_initial_older_refresh_real_time_off,H,2026-10-02T10:00:00+02:00,,,,
-after_inserts_real_time_off,older,2026-09-30T10:00:00+02:00,1.5,2,1.0,1
-after_inserts_real_time_off,H,2026-10-02T10:00:00+02:00,2.0,1,,
-real_time_on_before_refresh,older,2026-09-30T10:00:00+02:00,1.5,2,1.0,1
-real_time_on_before_refresh,H,2026-10-02T10:00:00+02:00,2.0,1,2.0,1
-after_manual_refresh_both_hours,older,2026-09-30T10:00:00+02:00,1.5,2,1.5,2
-after_manual_refresh_both_hours,H,2026-10-02T10:00:00+02:00,2.0,1,2.0,1
+after_initial_older_refresh_real_time_off,older,2026-10-13T12:00:00+02:00,1.0,1,1.0,1
+after_initial_older_refresh_real_time_off,H,2026-10-15T12:00:00+02:00,,,,
+after_inserts_real_time_off,older,2026-10-13T12:00:00+02:00,1.5,2,1.0,1
+after_inserts_real_time_off,H,2026-10-15T12:00:00+02:00,2.0,1,,
+real_time_on_before_refresh,older,2026-10-13T12:00:00+02:00,1.5,2,1.0,1
+real_time_on_before_refresh,H,2026-10-15T12:00:00+02:00,2.0,1,2.0,1
+after_manual_refresh_both_hours,older,2026-10-13T12:00:00+02:00,1.5,2,1.5,2
+after_manual_refresh_both_hours,H,2026-10-15T12:00:00+02:00,2.0,1,2.0,1

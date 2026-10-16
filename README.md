@@ -42,6 +42,7 @@ The historical stream has 10,696,848 emitted dictionaries. It can require substa
 - `docs/environment_details.md`: recorded host, Docker, database and session settings (physical disk media type still requires manual verification).
 - `docs/management_recommendation.md`: measured management recommendation draft (under 500 words).
 - `docs/measured_findings.md`: observed assignment results and outstanding report/evidence limitations.
+- `docs/assignment_report_draft.md`: subsection-ordered report draft populated from saved measurements, with real-evidence placeholders.
 - `sql/clean.sql`: conflict-aware deterministic duplicate removal.
 - `sql/aggregates.sql`: three materialized-only aggregate definitions and historical refreshes.
 - `analyze_forecast.py`: leakage-aware previous-day baseline and two trained regression configurations with chronological validation/test outputs.
